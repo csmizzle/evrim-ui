@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
-import Checkbox from 'primevue/checkbox';
 import InputText from 'primevue/inputtext';
 
 import { ref } from 'vue';
@@ -13,9 +12,17 @@ const checked1 = ref(true);
         <div class="bg-auto dark:bg-surface-900 p-6 shadow-xl rounded-border w-full lg:w-6/12 mx-auto">
             <div class="text-center mb-8">
                 <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Evrim</div>
+                <span class="text-surface-600 dark:text-surface-200 font-medium leading-normal">Already have an account?</span>
+                <a class="font-medium no-underline ml-2 text-primary cursor-pointer" href="/login">Login</a>
             </div>
 
             <div>
+                <label for="firstname1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">First Name</label>
+                <InputText id="firstname" type="text" v-model="firstName" placeholder="First Name" class="w-full mb-4" />
+
+                <label for="lastname1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Last Name</label>
+                <InputText id="lastname" type="text" v-model="lastName" placeholder="Last Name" class="w-full mb-4" />
+
                 <label for ="username1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Username</label>
                 <InputText id="username1" type="text" v-model="username" placeholder="Username" class="w-full mb-4" />
 
@@ -25,16 +32,12 @@ const checked1 = ref(true);
                 <label for="password1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Password</label>
                 <InputText id="password" v-model="password" type="password" placehoder="Password" class="w-full mb-4" />
 
-                <label for="firstname1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">First Name</label>
-                <InputText id="firstname" type="text" v-model="firstName" placeholder="First Name" class="w-full mb-4" />
-
-                <label for="lastname1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Last Name</label>
-                <InputText id="lastname" type="text" v-model="lastName" placeholder="Last Name" class="w-full mb-4" />
-
-                <Button label="Sign In" @click="registerUser" icon="pi pi-user" class="w-full" />
-                <div>
-                    <Message v-if="registerError" severity="error" text="Error creating user" />
-                </div>
+                <Button :label="loading ? '      ' : 'Sign Up'" @click="registerUser" icon="pi pi-user" class="w-full flex-shrink-0" :disabled="loading" style="min-width: 100px;">
+                    <template #icon>
+                        <ProgressSpinner v-if="loading" style="width: 20px; height: 20px;" strokeWidth="4"/>
+                    </template>
+                </Button>
+                <div v-if="registerError" class="text-red-500 text-center mt-4">Please review registration form</div>
             </div>
         </div>
     </div>
@@ -43,8 +46,7 @@ const checked1 = ref(true);
 <script lang="ts">
 import EvrimClient from '~/utils/api';
 import { defineComponent } from 'vue';
-
-const userStore = useUserStore();
+import { useNuxtApp } from '#app'
 
 export default defineComponent({
     data() {
@@ -55,11 +57,15 @@ export default defineComponent({
             firstName: '',
             lastName: '',
             registerError: false,
+            loading: false,
             client: new EvrimClient()
         }
     },
     methods: {
         registerUser() {
+            this.loading = true;
+            const nuxtApp = useNuxtApp()
+            const userStore = useUserStore(nuxtApp.$pinia);
             this.client.register(
                 this.username,
                 this.password,
@@ -72,12 +78,12 @@ export default defineComponent({
                     userStore.username = this.username;
                     userStore.isAuthenticated = true;
                     this.$router.push('/');
+                    this.loading = false;
                 }
-                else {
-                    console.log('Login failed');
-                    this.registerError = true;
-                }
-            });
+            }).catch(() => {
+                this.registerError = true;
+                this.loading = false;
+            })
         }
     }
 })

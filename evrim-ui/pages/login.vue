@@ -23,17 +23,12 @@ const checked1 = ref(true);
                 <label for="password1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Password</label>
                 <InputText id="password1" v-model="password" type="password" placehoder="Password" @keyup.enter="loginUser" class="w-full mb-4" />
 
-                <div class="flex items-center justify-between mb-12">
-                    <div class="flex items-center">
-                        <Checkbox id="rememberme1" v-model="checked1" :binary="true" class="mr-2" />
-                        <label for="rememberme1">Remember me</label>
-                    </div>
-                    <a class="font-medium no-underline ml-2 text-primary text-right cursor-pointer">Forgot password?</a>
-                </div>
-                <Button label="Sign In" @click="loginUser" icon="pi pi-user" class="w-full" />
-                <div>
-                    <Message v-if="loginError" severity="error" text="Invalid username or password" />
-                </div>
+                <Button :label="loading ? '      ' : 'Sign In'" @click="loginUser" icon="pi pi-user" class="w-full flex-shrink-0" :disabled="loading" style="min-width: 100px;">
+                    <template #icon>
+                        <ProgressSpinner v-if="loading" style="width: 20px; height: 20px;" strokeWidth="4"/>
+                    </template>
+                </Button>
+                <div v-if="loginError" class="text-red-500 text-center mt-4">Invalid username or password</div>
             </div>
         </div>
     </div>
@@ -52,11 +47,13 @@ export default defineComponent({
             username: '',
             password: '',
             loginError: false,
+            loading: false,
             client: new EvrimClient()
         }
     },
     methods: {
         loginUser() {
+            this.loading = true;
             const nuxtApp = useNuxtApp()
             const userStore = useUserStore(nuxtApp.$pinia);
             this.client.login(this.username, this.password).then((res: { status: number; data: any}) => {
@@ -66,11 +63,11 @@ export default defineComponent({
                     userStore.isAuthenticated = true;
                     this.loginError = false;
                     this.$router.push('/');
+                    this.loading = false;
                 }
-                if (res.status === 401) {
-                    console.log('Login failed');
-                    this.loginError = true;
-                }
+            }).catch(() => {
+                this.loginError = true;
+                this.loading = false;
             });
         }
     }

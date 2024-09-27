@@ -119,10 +119,10 @@
                 <div class="mt-auto">
                     <hr class="mx-4 border-t border-0 border-surface" />
                     <a
-                        class="my-4 flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                        @click="logOut" class="my-4 flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                     >
-                        <i class="pi pi-sign-out mr-2 lg:mr-0 text-base lg:!text-2xl leading-none text-primary" />
-                        <span class="font-medium inline lg:hidden" @click="logOut">Sign Out</span>
+                        <i class="pi text-white pi-sign-out mr-2 lg:mr-0 text-base lg:!text-2xl leading-none text-primary" />
+                        <span class="font-medium inline lg:hidden" >Sign Out</span>
                     </a>
                 </div>
             </div>
