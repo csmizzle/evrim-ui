@@ -17,25 +17,36 @@
                         <li>
                             <a
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-primary-emphasis border-l-2 border-primary-emphasis hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                style="color: white !important;"
                             >
-                                <i class="pi pi-home mr-2 lg:mr-0 text-base lg:!text-2xl leading-none" />
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Home</span>
+                                <i 
+                                    class="pi pi-home mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none"
+                                    style="color: white !important;"
+                                />
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                style="color: white !important;"
+                            >
+                                <i 
+                                    class="pi pi-search mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none"
+                                    style="color: white !important;"
+                                />
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Search</span>
                             </a>
                         </li>
                         <li>
                             <a
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                             >
-                                <i class="pi pi-search mr-2 lg:mr-0 text-base lg:!text-2xl leading-none" />
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Search</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
-                            >
-                                <i class="pi pi-users mr-2 lg:mr-0 text-base lg:!text-2xl leading-none" />
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Team</span>
+                                <i 
+                                    class="pi pi-users mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none"
+                                    style="color: white !important;"
+                                />
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Team</span>
                             </a>
                         </li>
                         <li class="relative">
@@ -49,10 +60,10 @@
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                             >
                                 <OverlayBadge severity="danger" class="mr-2 lg:mr-0">
-                                    <i class="pi pi-chart-line text-base lg:!text-2xl leading-none" />
+                                    <i class="pi pi-chart-line !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                                 </OverlayBadge>
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Reports</span>
-                                <i class="pi pi-chevron-down ml-auto lg:hidden" />
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Reports</span>
+                                <i class="pi pi-chevron-down ml-auto lg:hidden" style="color: white !important;"/>
                             </a>
                             <ul
                                 class="list-none pl-4 pr-0 py-0 lg:p-4 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out static rounded-r lg:absolute left-full top-0 z-10 bg-surface-0 dark:bg-surface-900 shadow-none lg:shadow w-full lg:w-60"
@@ -65,16 +76,16 @@
                                         }"
                                         class="flex items-center cursor-pointer p-4 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-0 rounded-border text-surface-600 dark:text-surface-200 hover:text-surface-700 dark:hover:text-surface-100 duration-150 transition-colors"
                                     >
-                                        <i class="pi pi-chart-line mr-2" />
+                                        <i class="pi pi-chart-line mr-2" style="color: white !important;"/>
                                         <span class="font-medium">Revenue</span>
-                                        <i class="pi pi-chevron-down ml-auto" />
+                                        <i class="pi pi-chevron-down ml-auto "style="color: white !important;"/>
                                     </a>
                                     <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                         <li>
                                             <a
                                                 class="flex items-center cursor-pointer p-4 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-0 rounded-border text-surface-600 dark:text-surface-200 hover:text-surface-700 dark:hover:text-surface-100 duration-150 transition-colors"
                                             >
-                                                <i class="pi pi-table mr-2" />
+                                                <i class="pi pi-table mr-2" style="color: white !important;"/>
                                                 <span class="font-medium">View</span>
                                             </a>
                                         </li>
@@ -82,7 +93,7 @@
                                             <a
                                                 class="flex items-center cursor-pointer p-4 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-0 rounded-border text-surface-600 dark:text-surface-200 hover:text-surface-700 dark:hover:text-surface-100 duration-150 transition-colors"
                                             >
-                                                <i class="pi pi-search mr-2" />
+                                                <i class="pi pi-search mr-2" style="color: white !important;"/>
                                                 <span class="font-medium">Search</span>
                                             </a>
                                         </li>
@@ -92,7 +103,7 @@
                                     <a
                                         class="flex items-center cursor-pointer p-4 hover:bg-surface-100 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-0 rounded-border text-surface-600 dark:text-surface-200 hover:text-surface-700 dark:hover:text-surface-100 duration-150 transition-colors"
                                     >
-                                        <i class="pi pi-chart-line mr-2" />
+                                        <i class="pi pi-chart-line mr-2" style="color: white !important;"/>
                                         <span class="font-medium">Expenses</span>
                                     </a>
                                 </li>
@@ -102,16 +113,16 @@
                             <a
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                             >
-                                <i class="pi pi-calendar mr-2 lg:mr-0 text-base lg:!text-2xl leading-none" />
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Events</span>
+                                <i class="pi pi-calendar mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Events</span>
                             </a>
                         </li>
                         <li>
                             <a
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                             >
-                                <i class="pi pi-cog mr-2 lg:mr-0 text-base lg:!text-2xl leading-none" />
-                                <span class="font-medium inline text-base lg:text-xs lg:hidden">Options</span>
+                                <i class="pi pi-cog mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Options</span>
                             </a>
                         </li>
                     </ul>
@@ -121,7 +132,7 @@
                     <a
                         @click="logOut" class="my-4 flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                     >
-                        <i class="pi text-white pi-sign-out mr-2 lg:mr-0 text-base lg:!text-2xl leading-none text-primary" />
+                        <i class="pi  pi-sign-out mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                         <span class="font-medium inline lg:hidden" >Sign Out</span>
                     </a>
                 </div>
@@ -141,7 +152,7 @@
                         }"
                         class="cursor-pointer block lg:hidden text-surface-700 dark:text-surface-100 mr-4 mt-1"
                     >
-                        <i class="pi pi-bars text-4xl" />
+                        <i class="pi pi-bars text-4xl " />
                     </a>
                     <IconField icon-position="left">
                         <InputIcon class="pi pi-search text-surface-700 dark:text-surface-100" />
@@ -159,7 +170,7 @@
                     }"
                     class="cursor-pointer block lg:hidden text-surface-700 dark:text-surface-100 ml-auto"
                 >
-                    <i class="pi pi-ellipsis-v text-2xl" />
+                    <i class="pi pi-ellipsis-v text-2xl " />
                 </a>
                 <ul
                     id="topbarmenu"
@@ -169,7 +180,7 @@
                         <a
                             class="flex p-4 lg:px-4 lg:py-2 items-center text-surface-600 dark:text-surface-200 hover:text-surface-900 dark:hover:text-surface-0 hover:bg-surface-100 dark:hover:bg-surface-700 font-medium rounded-border cursor-pointer duration-150 transition-colors"
                         >
-                            <i class="pi pi-inbox text-base lg:!text-2xl leading-none mr-2 lg:mr-0" />
+                            <i class="pi pi-inbox !text-white lg:!text-2xl leading-none mr-2 lg:mr-0 " />
                             <span class="block lg:hidden font-medium">Inbox</span>
                         </a>
                     </li>
@@ -178,7 +189,7 @@
                             class="flex p-4 lg:px-4 lg:py-2 items-center text-surface-600 dark:text-surface-200 hover:text-surface-900 dark:hover:text-surface-0 hover:bg-surface-100 dark:hover:bg-surface-700 font-medium rounded-border cursor-pointer duration-150 transition-colors"
                         >
                             <OverlayBadge severity="danger" class="mr-2 lg:mr-0">
-                                <i class="pi pi-bell text-base lg:!text-2xl leading-none" />
+                                <i class="pi pi-bell !text-white lg:!text-2xl leading-none " />
                             </OverlayBadge>
                             <span class="block lg:hidden font-medium">Notifications</span>
                         </a>
@@ -204,7 +215,7 @@
                     }"
                     class="cursor-pointer block text-surface-700 dark:text-surface-100 ml-4"
                 >
-                    <i class="pi pi-arrow-left text-2xl" />
+                    <i class="pi pi-arrow-left text-2xl " />
                 </a>
             </div>
             <div class="p-8 flex flex-auto">

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     evrimApiUrl: 'http://localhost:8000',
   },
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', 'primeicons/primeicons.css'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -24,11 +24,6 @@ export default defineNuxtConfig({
       inputVariant: 'filled',
       theme: {
           preset: Aura,
-          options: {
-              prefix: 'p',
-              darkModeSelector: 'system',
-              cssLayer: false
-          }
       }
     }
   }
