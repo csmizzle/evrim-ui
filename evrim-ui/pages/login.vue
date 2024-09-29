@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
-import Checkbox from 'primevue/checkbox';
 import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
 const checked1 = ref(true);
+
+definePageMeta({
+    title: 'Login',
+    description: 'Login page of Evrim',
+    requiresAuth: false,
+    layout: false
+})
 
 </script>
 
@@ -40,7 +46,6 @@ import { defineComponent } from 'vue';
 import { useNuxtApp } from '#app'
 
 // get the pinia object for the user store
-
 export default defineComponent({
     data() {
         return {
@@ -58,12 +63,25 @@ export default defineComponent({
             const userStore = useUserStore(nuxtApp.$pinia);
             this.client.login(this.username, this.password).then((res: { status: number; data: any}) => {
                 if (res.status === 200) {
-                    userStore.userId = res.data.id;
-                    userStore.username = this.username;
-                    userStore.isAuthenticated = true;
-                    this.loginError = false;
-                    this.$router.push('/');
-                    this.loading = false;
+                    this.client.getTokens(
+                        this.username,
+                        this.password
+                    ).then((res: { status: number; data: any}) => {
+                        if (res.status === 200) {
+                            userStore.accessToken = res.data.access;
+                            userStore.refreshToken = res.data.refresh;
+                            userStore.userId = res.data.id;
+                            userStore.username = this.username;
+                            userStore.isAuthenticated = true;
+                            userStore.isSubscribed = res.data.subscribed;
+                            this.loginError = false;
+                            this.$router.push('/');
+                            this.loading = false;
+                        }
+                    }).catch(() => {
+                        this.loginError = true;
+                        this.loading = false;
+                    });
                 }
             }).catch(() => {
                 this.loginError = true;

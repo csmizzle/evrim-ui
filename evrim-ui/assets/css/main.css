@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.disabled-link {
+    color: gray;
+    pointer-events: none; /* Disables click events */
+    cursor: default;      /* Changes the cursor to default */
+    text-decoration: none; /* Optional: Removes underline */
+  }

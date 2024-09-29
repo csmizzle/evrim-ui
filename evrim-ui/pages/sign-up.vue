@@ -5,6 +5,13 @@ import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
 
 const checked1 = ref(true);
+
+definePageMeta({
+    title: 'Sign Up',
+    description: 'Sign up page of Evrim',
+    requiresAuth: false,
+    layout: false
+})
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const checked1 = ref(true);
                 <InputText id="email" type="text" v-model="email" placeholder="Email Address" class="w-full mb-4" />
 
                 <label for="password1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Password</label>
-                <InputText id="password" v-model="password" type="password" placehoder="Password" class="w-full mb-4" />
+                <InputText id="password" v-model="password" type="password" placehoder="Password" @keyup.enter="registerUser" class="w-full mb-4" />
 
                 <Button :label="loading ? '      ' : 'Sign Up'" @click="registerUser" icon="pi pi-user" class="w-full flex-shrink-0" :disabled="loading" style="min-width: 100px;">
                     <template #icon>
@@ -75,10 +82,20 @@ export default defineComponent({
             ).then((res: { status: number; data: any; }) => {
                 if (res.status === 201) {
                     userStore.userId = res.data.id;
-                    userStore.username = this.username;
-                    userStore.isAuthenticated = true;
-                    this.$router.push('/');
-                    this.loading = false;
+                    this.client.getTokens(
+                        this.username,
+                        this.password
+                    ).then((res: { data: any; }) => {
+                        // set tokens
+                        userStore.accessToken = res.data.access;
+                        userStore.refreshToken = res.data.refresh;
+                        // set user details
+                        userStore.username = this.username;
+                        userStore.isAuthenticated = true;
+                        // redirect to home
+                        this.$router.push('/');
+                        this.loading = false;
+                    })
                 }
             }).catch(() => {
                 this.registerError = true;

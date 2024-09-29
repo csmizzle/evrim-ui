@@ -1,10 +1,12 @@
-import axios from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
 
 class EvrimClient {
-    client: any;
+    private client: AxiosInstance;
+
     constructor() {
+        const runtimeConfig = useRuntimeConfig();
         this.client = axios.create({
-            baseURL: 'http://localhost:8000',
+            baseURL: runtimeConfig.public.EVRIM_API_URL,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -34,6 +36,40 @@ class EvrimClient {
             first_name: firstName,
             last_name: lastName,
         });
+    }
+
+    createStripeCheckoutSession(token: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.post('/checkout/session/', {}, config);
+    }
+
+    getTokens(username: string, password: string) {
+        return this.client.post('/token/' , {
+            username: username,
+            password: password,
+        })
+    }
+
+    subscribe(token: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.post('/subscribe/', {}, config);
+    }
+
+    isSubscribed(token: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get('/subscribed/', config);
     }
 }
 
