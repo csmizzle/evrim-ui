@@ -2,7 +2,7 @@
     <div class="min-h-screen flex relative lg:static bg-surface-50 dark:bg-surface-950">
         <div 
         id="app-sidebar-9" 
-        class="sticky fixed h-screen bg-surface-0 dark:bg-surface-950 lg:block flex-shrink-0 absolute fixed left-0 top-0 z-10 border-r border-surface w-72 lg:w-16 select-none"
+        class="sticky fixed h-screen bg-surface-0 dark:bg-surface-950 lg:block flex-shrink-0 absolute left-0 top-0 z-10 border-r border-surface w-72 lg:w-16 select-none"
         >
             <div class="flex flex-col h-full">
                 <div class="flex items-center justify-center flex-shrink-0 h-[60px]">
@@ -145,7 +145,7 @@ onMounted(() => {
     const userStore = useUserStore();
     const client = new EvrimClient();
     // check if user is subscribed
-    client.isSubscribed(userStore.accessToken).then((res: { status: number; data: any}) => {
+    client.isSubscribed().then((res: { status: number; data: any}) => {
         if (res.status === 200) {
             userStore.isSubscribed = true;
         }

@@ -1,5 +1,10 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
 
+// ser up axios crsftoken
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+
+
 class EvrimClient {
     private client: AxiosInstance;
 
@@ -10,6 +15,7 @@ class EvrimClient {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true,
         });
     }
 
@@ -63,13 +69,12 @@ class EvrimClient {
         return this.client.post('/subscribe/', {}, config);
     }
 
-    isSubscribed(token: string) {
-        const config: AxiosRequestConfig = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return this.client.get('/subscribed/', config);
+    isSubscribed() {
+        return this.client.get('/subscribed/');
+    }
+
+    getUserInfo() {
+        return this.client.get('/user-info/');
     }
 }
 

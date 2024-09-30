@@ -5,6 +5,9 @@ interface UserState {
     userId: number | null;
     isAuthenticated: boolean;
     username: string | null;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
     isSubscribed: boolean;
     accessToken: string;
     refreshToken: string;
@@ -16,6 +19,9 @@ export const useUserStore = defineStore('user', {
         isAuthenticated: false,
         username: null,
         isSubscribed: false,
+        emailAddress: '',
+        firstName: '',
+        lastName: '',
         accessToken: '',
         refreshToken: '',
     }),
@@ -24,17 +30,23 @@ export const useUserStore = defineStore('user', {
         getIsAuthenticated: (state) => state.isAuthenticated,
         getUsername: (state) => state.username,
         getIsSubscribed: (state) => state.isSubscribed,
+        getFirstName: (state) => state.firstName,
+        getLastName: (state) => state.lastName,
         getAccessToken: (state) => state.accessToken,
         getRefreshToken: (state) => state.refreshToken,
+        getEmailAddress: (state) => state.emailAddress,
     },
     actions: {
         logout() {
             this.userId = null;
             this.isAuthenticated = false;
             this.username = null;
+            this.firstName = '';
+            this.lastName = '';
             this.isSubscribed = false;
             this.accessToken = '';
             this.refreshToken = '';
+            this.emailAddress = '';
         }
     },
     persist: true

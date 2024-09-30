@@ -68,15 +68,25 @@ export default defineComponent({
                         this.password
                     ).then((res: { status: number; data: any}) => {
                         if (res.status === 200) {
-                            userStore.accessToken = res.data.access;
-                            userStore.refreshToken = res.data.refresh;
-                            userStore.userId = res.data.id;
-                            userStore.username = this.username;
-                            userStore.isAuthenticated = true;
-                            userStore.isSubscribed = res.data.subscribed;
-                            this.loginError = false;
-                            this.$router.push('/');
-                            this.loading = false;
+                            this.client.getUserInfo().then((userResponse: { status: number; data: any}) => {
+                                if (userResponse.status === 200) {
+                                    userStore.emailAddress = userResponse.data.email;
+                                    userStore.firstName = userResponse.data.first_name;
+                                    userStore.lastName = userResponse.data.last_name;
+                                    userStore.accessToken = res.data.access;
+                                    userStore.refreshToken = res.data.refresh;
+                                    userStore.userId = res.data.id;
+                                    userStore.username = this.username;
+                                    userStore.isAuthenticated = true;
+                                    userStore.isSubscribed = res.data.subscribed;
+                                    this.loginError = false;
+                                    this.$router.push('/');
+                                    this.loading = false;
+                                }
+                            }).catch(() => {
+                                this.loginError = true;
+                                this.loading = false;
+                            });
                         }
                     }).catch(() => {
                         this.loginError = true;

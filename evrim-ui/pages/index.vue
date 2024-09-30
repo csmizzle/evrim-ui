@@ -16,7 +16,7 @@ onMounted(() => {
     const userStore = useUserStore();
     const client = new EvrimClient();
     // check if user is subscribed
-    client.isSubscribed(userStore.accessToken).then((res: { status: number; data: any}) => {
+    client.isSubscribed().then((res: { status: number; data: any}) => {
         if (res.status === 200) {
             userStore.isSubscribed = true;
         }
