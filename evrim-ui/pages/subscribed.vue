@@ -8,8 +8,7 @@ const router = useRouter();
 onMounted(() => {
     setTimeout(() => {
         console.log('redirecting ...');
-        const userStore = useUserStore();
-        client.subscribe(userStore.accessToken).then((res: { status: number; data: any}) => {
+        client.subscribe().then((res: { status: number; data: any}) => {
             if (res.status === 201) {
                 const userStore = useUserStore();
                 // set new user token

@@ -34,7 +34,7 @@
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                                 href="/reports"
                             >
-                                <i class="pi pi-book !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
+                                <i class="pi pi-book mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Reports</span>
                             </a>
                         </li>

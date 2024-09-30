@@ -49,8 +49,8 @@ class EvrimClient {
     createStripeCheckoutSession(token: string) {
         const config: AxiosRequestConfig = {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
         }
         return this.client.post('/checkout/session/', {}, config);
     }
@@ -62,11 +62,11 @@ class EvrimClient {
         })
     }
 
-    subscribe(token: string) {
+    subscribe() {
         const config: AxiosRequestConfig = {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
         }
         return this.client.post('/subscribe/', {}, config);
     }
@@ -110,6 +110,15 @@ class EvrimClient {
             first_name: firstName,
             last_name: lastName,
         }, config);
+    }
+
+    getReports(token: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get('/reports/', config);
     }
 }
 

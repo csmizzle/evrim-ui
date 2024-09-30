@@ -1,7 +1,7 @@
 <template>
     <div class="bg-auto dark:bg-auto px-6 py-20 md:px-12 lg:px-20">
         <div class="text-surface-900 dark:text-surface-0 font-bold text-4xl lg:text-6xl mb-6 text-center">Pricing Plans</div>
-        <div class="text-surface-700 dark:text-surface-0/70 text-xl mb-12 text-center leading-normal">Evrim only provides a Basic Plan to but more are coming!</div>
+        <div class="text-surface-700 dark:text-surface-0/70 text-xl mb-12 text-center leading-normal">Evrim only provides a Basic Plan but more are coming!</div>
         <div class="flex justify-center">
             <div
                 class="w-full lg:w-1/3 flex-1 py-4 px-4 lg:px-6 flex rounded-lg flex-col bg-surface-0 dark:bg-surface-800 shadow-[0px_2px_6px_0px_rgba(0,0,0,0.12),0px_0px_2px_0px_rgba(0,0,0,0.06),0px_4px_10px_0px_rgba(0,0,0,0.03)]"
