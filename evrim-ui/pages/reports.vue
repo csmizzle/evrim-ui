@@ -14,8 +14,8 @@
                         </div>
                     </div>
                     <div class="flex justify-between pt-6">
-                        <Button label="View" icon="pi pi-search" class="w-6/12 mr-2" severity="secondary" outlined />
-                        <Button label="Follow" icon="pi pi-user-plus" class="w-6/12 ml-2" severity="secondary" outlined />
+                        <Button label="View" icon="pi pi-search" class="w-6/12 mr-2" outlined />
+                        <Button label="Follow" icon="pi pi-user-plus" class="w-6/12 ml-2" outlined />
                     </div>
                 </div>
             </div>
