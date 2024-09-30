@@ -1,4 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
+import { getCookie } from '.';
+
 
 // ser up axios crsftoken
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -75,6 +77,39 @@ class EvrimClient {
 
     getUserInfo() {
         return this.client.get('/user-info/');
+    }
+
+    updateUserInfo(
+        username: string,
+        email: string,
+        firstName: string,
+        lastName: string,
+    ) {
+        return this.client.put('/user-info/', {
+            username: username,
+            email: email,
+            first_name: firstName,
+            last_name: lastName,
+        });
+    }
+
+    updatePartialUserInfo(
+        username: string | null,
+        email: string | null,
+        firstName: string | null,
+        lastName: string | null,
+    ) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
+        }
+        return this.client.patch('/user-info/', {
+            username: username,
+            email: email,
+            first_name: firstName,
+            last_name: lastName,
+        }, config);
     }
 }
 

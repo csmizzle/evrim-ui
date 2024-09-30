@@ -29,7 +29,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       EVRIM_API_URL: process.env.NUXT_EVRIM_API_URL,
-      STRIPE_PUBLISHABLE_KEY: process.env.NUXT_STRIPE_PUBLISHABLE_KEY
+      STRIPE_PUBLISHABLE_KEY: process.env.NUXT_STRIPE_PUBLISHABLE_KEY,
+      STRIPE_MANAGEMENT_URL: process.env.NUXT_STRIPE_MANAGEMENT_URL
     }
   },
   devtools: { enabled: true },

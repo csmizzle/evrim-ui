@@ -71,7 +71,7 @@ export default defineComponent({
             const userStore = useUserStore(nuxtApp.$pinia);
             // crete session id using user token
             // first check if user is already subscribed
-            this.client.isSubscribed(userStore.accessToken).then((res: { status: number; data: any}) => {
+            this.client.isSubscribed().then((res: { status: number; data: any}) => {
                 if (res.status === 200) {
                     this.$router.push('/subscribed');
                 }
