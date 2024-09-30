@@ -1,6 +1,9 @@
 <template>
- <div class="min-h-screen flex relative lg:static bg-surface-50 dark:bg-surface-950">
-        <div id="app-sidebar-9" class="h-screen bg-surface-0 dark:bg-surface-950 hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-10 border-r border-surface w-72 lg:w-16 select-none">
+    <div class="min-h-screen flex relative lg:static bg-surface-50 dark:bg-surface-950">
+        <div 
+        id="app-sidebar-9" 
+        class="sticky fixed h-screen bg-surface-0 dark:bg-surface-950 lg:block flex-shrink-0 absolute fixed left-0 top-0 z-10 border-r border-surface w-72 lg:w-16 select-none"
+        >
             <div class="flex flex-col h-full">
                 <div class="flex items-center justify-center flex-shrink-0 h-[60px]">
                     <img src="@/assets/images/logo.png" style="width: 36px; height: 36px; max-width: 36px; max-height: 36px; object-fit: contain;"/>
@@ -57,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <div class="min-h-screen flex flex-col relative flex-auto" v-if="subscribed() === true">
-            <div class="h-[60px] flex justify-between items-center px-8 bg-surface-0 dark:bg-surface-950 relative lg:static border-b border-surface">
+        <div class="stick top-0 fixed min-h-screen flex flex-col relative flex-auto" v-if="subscribed() === true">
+            <div class="sticky top-0 fixed h-[60px] flex justify-between items-center px-8 bg-surface-0 dark:bg-surface-950 border-b border-surface">
                 <div class="flex">
                     <a
                         v-styleclass="{
