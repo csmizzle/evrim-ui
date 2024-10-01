@@ -2,7 +2,7 @@
     <div class="min-h-screen flex relative lg:static bg-surface-50 dark:bg-surface-950">
         <div 
         id="app-sidebar-9" 
-        class="sticky fixed h-screen bg-surface-0 dark:bg-surface-950 lg:block flex-shrink-0 absolute left-0 top-0 z-10 border-r border-surface w-72 lg:w-16 select-none"
+        class="sticky fixed h-screen bg-surface-0 dark:bg-surface-950 lg:block flex-shrink-0 absolute left-0 top-0 z-10 border-r border-surface w-50 lg:w-16 select-none"
         >
             <div class="flex flex-col h-full">
                 <div class="flex items-center justify-center flex-shrink-0 h-[60px]">
@@ -101,11 +101,25 @@
                     <li>
                         <a
                             class="flex p-4 lg:px-4 lg:py-2 items-center text-surface-600 dark:text-surface-200 hover:text-surface-900 dark:hover:text-surface-0 hover:bg-surface-100 dark:hover:bg-surface-700 font-medium rounded-border cursor-pointer duration-150 transition-colors"
+                            @click="showOrderReport = true"
+                        >
+                            <i class="pi pi-plus !text-white lg:!text-2xl leading-none mr-2 lg:mr-0 " />
+                            <span class="block lg:hidden font-medium">Order</span>
+                            <Dialog v-model:visible="showOrderReport" maximizable modal header="Order" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                                <p class="m-0">
+                                    Order a report
+                                </p>
+                            </Dialog>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            class="flex p-4 lg:px-4 lg:py-2 items-center text-surface-600 dark:text-surface-200 hover:text-surface-900 dark:hover:text-surface-0 hover:bg-surface-100 dark:hover:bg-surface-700 font-medium rounded-border cursor-pointer duration-150 transition-colors"
                             @click="showInbox = true"
                         >
                             <i class="pi pi-inbox !text-white lg:!text-2xl leading-none mr-2 lg:mr-0 " />
                             <span class="block lg:hidden font-medium">Inbox</span>
-                            <Dialog v-model:visible="showInbox" maximizable modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                            <Dialog v-model:visible="showInbox" maximizable modal header="Inbox" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
                                 <p class="m-0">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -164,7 +178,7 @@ export default defineComponent({
         return {
             client: new EvrimClient(),
             showInbox: false,
-
+            showOrderReport: false
         }
     },
     methods: {
