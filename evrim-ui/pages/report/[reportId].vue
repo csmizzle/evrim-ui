@@ -140,7 +140,6 @@ export default defineComponent({
             const userStore = useUserStore();
             const reportId = this.taskReport.report.id
             this.client.generateReportPdf(userStore.accessToken, reportId).then((response) => {
-                console.log(response.data);
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -155,7 +154,6 @@ export default defineComponent({
             const userStore = useUserStore();
             const reportId = this.taskReport.report.id
             this.client.generateReportDocx(userStore.accessToken, reportId).then((response) => {
-                console.log(response.data);
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
