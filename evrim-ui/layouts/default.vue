@@ -96,7 +96,7 @@
                 </a>
                 <ul
                     id="topbarmenu"
-                    class="list-none p-0 m-0 hidden lg:flex lg:items-center select-none lg:flex-row lg:ml-auto bg-surface-0 dark:bg-surface-950 border lg:border-0 border-surface right-0 top-full z-10 shadow lg:shadow-none absolute lg:static"
+                    class="list-none p-0 m-0 hidden lg:flex lg:items-center select-none lg:flex-row lg:ml-auto bg-surface-0 dark:bg-surface-950 border lg:border-0 border-surface right-0 top-full z-50 shadow lg:shadow-none absolute lg:static"
                 >
                     <li>
                         <a
