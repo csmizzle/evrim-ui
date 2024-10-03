@@ -60,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <div class="stick top-0 fixed min-h-screen flex flex-col relative flex-auto" v-if="subscribed() === true">
-            <div class="sticky top-0 fixed h-[60px] flex justify-between items-center px-8 bg-surface-0 dark:bg-surface-950 border-b border-surface">
+        <div class="stick top-0 fixed min-h-screen flex flex-col relative flex-auto z-50" v-if="subscribed() === true">
+            <div class="sticky top-0 fixed h-[60px] flex justify-between items-center px-8 bg-surface-0 dark:bg-surface-950 border-b border-surface z-50">
                 <div class="flex">
                     <a
                         v-styleclass="{
@@ -76,10 +76,10 @@
                     >
                         <i class="pi pi-bars text-4xl " />
                     </a>
-                    <IconField icon-position="left">
+                    <!-- <IconField icon-position="left">
                         <InputIcon class="pi pi-search text-surface-700 dark:text-surface-100" />
                         <InputText type="text" class="border-0 w-40 sm:w-80" placeholder="Search" />
-                    </IconField>
+                    </IconField> -->
                 </div>
                 <a
                     v-styleclass="{
@@ -96,7 +96,7 @@
                 </a>
                 <ul
                     id="topbarmenu"
-                    class="list-none p-0 m-0 hidden lg:flex lg:items-center select-none lg:flex-row lg:ml-auto bg-surface-0 dark:bg-surface-950 border lg:border-0 border-surface right-0 top-full z-50 shadow lg:shadow-none absolute lg:static"
+                    class="list-none p-0 m-0 hidden lg:flex lg:items-center select-none lg:flex-row lg:ml-auto bg-surface-0 dark:bg-surface-950 border lg:border-0 border-surface right-0 top-full z-5 shadow lg:shadow-none absolute lg:static"
                 >
                     <li>
                         <a

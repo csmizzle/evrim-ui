@@ -1,29 +1,42 @@
 <template>
 <div class="bg-surface-50 dark:bg-surface-950 p-6">
     <div v-if="taskReport.report">
-        <div class="flex justify-between items-center mb-4">
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl pl-2">
+        <div class="flex justify-between items-center mb-2">
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl justify-left">
                 {{ taskReport.report.report.title }}
-            </div>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl pl-2">
-                {{ taskReport.task.event }}
-            </div>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl pl-2">
-                {{ taskReport.report.report.sections[0].style }}
-            </div>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl pl-2">
-                {{ taskReport.report.report.sections[0].tone }}
             </div>
             <SplitButton icon="pi pi-download" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" outlined></SplitButton>
         </div>
-        <div class="text-surface-900 dark:text-surface-0 font-medium text-l mb-4 pl-2">
+        <Divider />
+        <div class="flex justify-between items-center mb-1">
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-l">
+                <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4">
+                    <a :href="JSON.parse(taskReport.task.event.input).url"target="_blank" rel="noopener noreferrer" >{{ JSON.parse(taskReport.task.event.input).url }}</a>
+                </p>
+            </div>
+        </div>
+        <div class="flex justify-left items-center mb-2">
+            <span v-if="taskReport.report.report.sections[0].style === 'NARRATIVE'" class="bg-blue-50 text-blue-400 dark:bg-blue-500/30 dark:text-blue-200 rounded-border inline-flex py-1 px-2 text-sm mr-2">
+                Narrative
+            </span>
+            <span v-if="taskReport.report.report.sections[0].tone === 'ANALYTICAL'" class="bg-purple-50 text-purple-400 dark:bg-purple-500/30 dark:text-purple-200 rounded-border inline-flex py-1 px-2 text-sm">
+                Analytical
+            </span>
+        </div>
+        <div class="flex justify-left text-surface-900 dark:text-surface-0 font-medium text-l mb-2">
             {{ taskReport.report.report.description }}
         </div>
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
             <Accordion multiple>
+                <div>
+                    <div class="text-surface-900 dark:text-surface-0 font-medium text-l pl-4">
+                        Sections
+                    </div>
+                    <Divider />
+                </div>
                 <AccordionPanel v-for="section in taskReport.report.report.sections" :key="section.id" :value="section.title">
                     <AccordionHeader>
-                        <span class="font-bold whitespace-nowrap">{{ section.title }}</span>
+                        <span class="font-bold whitespace-nowrap z-0">{{ section.title }}</span>
                         <i v-if="section.sources && section.sources.length > 0" class="pi pi-external-link ml-auto mr-2" style="color: white !important"/>
                     </AccordionHeader>
                     <AccordionContent>
@@ -53,6 +66,7 @@
 <script setup lang="ts">
 import Accordion from 'primevue/accordion';
 import SplitButton from 'primevue/splitbutton';
+import Divider from 'primevue/divider';
 import { useToast } from "primevue/usetoast";
 
 const toast = useToast();

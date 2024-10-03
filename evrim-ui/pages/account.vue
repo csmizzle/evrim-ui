@@ -4,6 +4,7 @@
         <p class="m-0 mb-4 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4">
             Modify your personal information and settings.
         </p>
+        <Divider />
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
             <div class="grid grid-cols-12 gap-4">
                 <div class="mb-4 col-span-12">
@@ -43,6 +44,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
+import Divider from 'primevue/divider';
 import EvrimClient from '~/utils/api';
 
 
