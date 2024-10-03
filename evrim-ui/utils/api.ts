@@ -120,6 +120,66 @@ class EvrimClient {
         }
         return this.client.get('/reports/', config);
     }
+
+    submitReport(
+        token: string,
+        url: string,
+        title: string,
+        description: string,
+        style: string,
+        tone: string,
+        point_of_view: string
+    ) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.post('/research/', {
+            url: url,
+            title: title,
+            description: description,
+            style: style,
+            tone: tone,
+            point_of_view: point_of_view,
+        }, config);
+    }
+
+    getTasks(token: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get('/tasks/', config);
+    }
+
+    getReportFromTaskId(token: string, taskId: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get(`/tasks/${taskId}/report/`, config);
+    }
+
+    generateReportPdf(token: string, reportId: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get(`/generate/${reportId}/pdf/`, config);
+    }
+
+    generateReportDocx(token: string, reportId: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return this.client.get(`/generate/${reportId}/docx/`, config);
+    }
 }
 
 export default EvrimClient;

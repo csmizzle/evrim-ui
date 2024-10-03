@@ -104,11 +104,38 @@
                             @click="showOrderReport = true"
                         >
                             <i class="pi pi-plus !text-white lg:!text-2xl leading-none mr-2 lg:mr-0 " />
-                            <span class="block lg:hidden font-medium">Order</span>
-                            <Dialog v-model:visible="showOrderReport" maximizable modal header="Order" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-                                <p class="m-0">
-                                    Order a report
-                                </p>
+                            <span class="block lg:hidden font-medium">Research</span>
+                            <Dialog v-model:visible="showOrderReport" maximizable modal header="Research" :style="{ width: '30rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                                <div class="justify-center flex flex-col gap-2 mb-4 fill">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-full md:w-100">
+                                            <InputText v-model="title" optionLabel="url" placeholder="Report Title" class="w-full" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-full md:w-100">
+                                            <InputGroup>
+                                                <InputGroupAddon>https://</InputGroupAddon>
+                                                <InputText v-model="url" optionLabel="url" placeholder="URL" class="w-full" />
+                                            </InputGroup>
+                                            <small id="title-help" class="block mt-2">Company url to start research process on</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-full md:w-100">
+                                            <Select v-model="selectedTone" :options="tones" optionLabel="name" placeholder="Report Tone" class="w-full" />
+                                            <small id="title-help" class="block mt-2">Report tones control how a report sounds and reads</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end gap-2">
+                                    <Button type="button" label="Cancel" severity="secondary" @click="showOrderReport = false"></Button>
+                                    <Button type="button" label="Submit" @click="submitReport"></Button>
+                                </div>
                             </Dialog>
                         </a>
                     </li>
@@ -152,7 +179,8 @@ import EvrimClient from '~/utils/api';
 definePageMeta({
     title: 'Home',
     description: 'Home page of Evrim ',
-    requiresAuth: true
+    requiresAuth: true,
+
 })
 
 onMounted(() => {
@@ -172,13 +200,29 @@ onMounted(() => {
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+interface Tone {
+    name: string;
+    code: string;
+}
+
 
 export default defineComponent({
     data() {
         return {
             client: new EvrimClient(),
             showInbox: false,
-            showOrderReport: false
+            showOrderReport: false,
+            tones: [
+                { name: 'Critical', code: 'CRITICAL' },
+                { name: 'Analytical', code: 'ANALYTICAL' },
+                { name: 'Informal', code: 'INFORMAL' },
+                { name: 'Informational', code: 'INFORMATIONAL' },
+                { name: 'Persuasive', code: 'PERSUASIVE' },
+                { name: 'Professional', code: 'PROFESSIONAL' }
+            ],
+            title: '',
+            url: '',
+            selectedTone: {} as Tone,
         }
     },
     methods: {
@@ -196,6 +240,36 @@ export default defineComponent({
         },
         goToSubscribe() {
             this.$router.push('/subscribe');
+        },
+        submitReport() {
+            // hey value from the selected tone value
+            const userStore = useUserStore();
+            this.client.submitReport(
+                userStore.accessToken,
+                "https://"+this.url,
+                this.title,
+                "Evrim UI Report",
+                "NARRATIVE",
+                this.selectedTone.code,
+                "THIRD_PERSON",
+            ).then((res: { status: number; data: any }) => {
+                if (res.status === 201) {
+                    this.showOrderReport = false
+                    this.$toast.add({ severity: 'success', summary: 'Success', detail: 'Research has begun!' });
+                    // reset input parameters
+                    this.url = '';
+                    this.title = '';
+                    this.selectedTone = {} as Tone;
+                }
+            }).catch((err: any) => {
+                console.log(err);
+                this.showOrderReport = false
+                this.$toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to start research.' });
+                // reset input parameters
+                this.url = '';
+                this.title = '';
+                this.selectedTone = {} as Tone;;
+            });
         }
     }
 })
