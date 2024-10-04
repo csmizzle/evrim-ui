@@ -12,7 +12,13 @@
                     <ul class="list-none p-0 m-0">
                         <li>
                             <a
-                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-primary-emphasis border-l-2 border-primary-emphasis hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                :class="{ 
+                                    'text-primary-emphasis': activeTab === 0,
+                                    'border-l-2': activeTab === 0,
+                                    'border-primary-emphasis': activeTab === 0,
+                                }"
+                                @click="setActiveTab(0)"
                                 style="color: white !important;"
                                 href="/"
                             >
@@ -31,7 +37,13 @@
                                     leaveToClass: 'hidden',
                                     hideOnOutsideClick: true
                                 }"
-                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                :class="{ 
+                                    'text-primary-emphasis': activeTab === 1,
+                                    'border-l-2': activeTab === 1,
+                                    'border-primary-emphasis': activeTab === 1,
+                                }"
+                                @click="setActiveTab(1)"
                                 href="/reports"
                             >
                                 <i class="pi pi-book mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
@@ -40,7 +52,13 @@
                         </li>
                         <li>
                             <a
-                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center text-surface-600 dark:text-surface-200 border-l-2 border-transparent hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                :class="{ 
+                                    'text-primary-emphasis': activeTab === 2,
+                                    'border-l-2': activeTab === 2,
+                                    'border-primary-emphasis': activeTab === 2,
+                                }"
+                                @click="setActiveTab(2)"
                                 href="/account"
                             >
                                 <i class="pi pi-cog mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
@@ -175,13 +193,9 @@
 </template>
 <script setup lang="ts">
 import EvrimClient from '~/utils/api';
+import { useToast } from 'primevue/usetoast';
 
-definePageMeta({
-    title: 'Home',
-    description: 'Home page of Evrim ',
-    requiresAuth: true,
-
-})
+const toast = useToast();
 
 onMounted(() => {
     const userStore = useUserStore();
@@ -207,6 +221,12 @@ interface Tone {
 
 
 export default defineComponent({
+    mounted() {
+        const savedTab = localStorage.getItem('activeTab');
+        if (savedTab !== null) {
+            this.activeTab = parseInt(savedTab);
+        }
+    },
     data() {
         return {
             client: new EvrimClient(),
@@ -223,13 +243,16 @@ export default defineComponent({
             title: '',
             url: '',
             selectedTone: {} as Tone,
+            activeTab: 0
         }
     },
     methods: {
         logOut() {
             const userStore = useUserStore();
+            const taskStore = useTaskStore();
             this.client.logout().then(() => {
                 userStore.logout();
+                taskStore.logout();
                 this.$router.push('/login');
             });
         },  
@@ -243,9 +266,7 @@ export default defineComponent({
         },
         submitReport() {
             // hey value from the selected tone value
-            const userStore = useUserStore();
             this.client.submitReport(
-                userStore.accessToken,
                 "https://"+this.url,
                 this.title,
                 "Evrim UI Report",
@@ -269,6 +290,21 @@ export default defineComponent({
                 this.url = '';
                 this.title = '';
                 this.selectedTone = {} as Tone;;
+            });
+        },
+        setActiveTab(index: number) {
+            this.activeTab = index;
+            localStorage.setItem('activeTab', index.toString()); // Save to localStorage
+        },
+        loadTasks() {
+            const taskStore = useTaskStore();
+            this.client.getTasks().then((res: { status: number; data: any }) => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    taskStore.tasks = res.data;
+                }
+            }).catch((err: any) => {
+                console.log(err);
             });
         }
     }

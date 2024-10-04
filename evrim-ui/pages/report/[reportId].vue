@@ -1,9 +1,9 @@
 <template>
 <div class="bg-surface-50 dark:bg-surface-950 p-6">
-    <div v-if="taskReport.report">
+    <div v-if="taskReport.task">
         <div class="flex justify-between items-center mb-2">
             <div class="text-surface-900 dark:text-surface-0 font-medium text-xl justify-left">
-                {{ taskReport.report.report.title }}
+                {{ JSON.parse(taskReport.task.event.input).title }}
             </div>
             <SplitButton icon="pi pi-download" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" outlined></SplitButton>
         </div>
@@ -15,18 +15,18 @@
                 </p>
             </div>
         </div>
-        <div class="flex justify-left items-center mb-2">
-            <span v-if="taskReport.report.report.sections[0].style === 'NARRATIVE'" class="bg-blue-50 text-blue-400 dark:bg-blue-500/30 dark:text-blue-200 rounded-border inline-flex py-1 px-2 text-sm mr-2">
-                Narrative
+        <div v-if="taskReport.report" class="flex justify-left items-center mb-2">
+            <span v-if="JSON.parse(taskReport.task.event.input).style" class="bg-blue-50 text-blue-400 dark:bg-blue-500/30 dark:text-blue-200 rounded-border inline-flex py-1 px-2 text-sm mr-2">
+                {{ toTitleCase(JSON.parse(taskReport.task.event.input).style) }}
             </span>
-            <span v-if="taskReport.report.report.sections[0].tone === 'ANALYTICAL'" class="bg-purple-50 text-purple-400 dark:bg-purple-500/30 dark:text-purple-200 rounded-border inline-flex py-1 px-2 text-sm">
-                Analytical
+            <span v-if="JSON.parse(taskReport.task.event.input).tone" class="bg-purple-50 text-purple-400 dark:bg-purple-500/30 dark:text-purple-200 rounded-border inline-flex py-1 px-2 text-sm">
+                {{ toTitleCase(JSON.parse(taskReport.task.event.input).tone) }}
             </span>
         </div>
-        <div class="flex justify-left text-surface-900 dark:text-surface-0 font-medium text-l mb-2">
+        <div v-if="taskReport.report" class="flex justify-left text-surface-900 dark:text-surface-0 font-medium text-l mb-2">
             {{ taskReport.report.report.description }}
         </div>
-        <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
+        <div v-if="taskReport.report" class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
             <Accordion multiple>
                 <div>
                     <div class="text-surface-900 dark:text-surface-0 font-medium text-l pl-4">
@@ -162,6 +162,11 @@ export default defineComponent({
                 link.click();
             }).catch((error) => {
                 console.error(error);
+            });
+        },
+        toTitleCase(str: string): string {
+            return str.replace(/\w\S*/g, (txt) => {
+                return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
             });
         }
     },

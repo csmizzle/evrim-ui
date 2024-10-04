@@ -122,7 +122,6 @@ class EvrimClient {
     }
 
     submitReport(
-        token: string,
         url: string,
         title: string,
         description: string,
@@ -132,8 +131,8 @@ class EvrimClient {
     ) {
         const config: AxiosRequestConfig = {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
         }
         return this.client.post('/research/', {
             url: url,
@@ -145,11 +144,29 @@ class EvrimClient {
         }, config);
     }
 
-    getTasks(token: string) {
+    deleteReport(reportId: string) {
         const config: AxiosRequestConfig = {
             headers: {
-                Authorization: `Bearer ${token}`,
-            },
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
+        }
+        return this.client.post(`/reports/${reportId}/`, config);
+    }
+
+    deleteTask(taskId: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
+        }
+        return this.client.delete(`/tasks/${taskId}/`, config);
+    }
+
+    getTasks() {
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
         }
         return this.client.get('/tasks/', config);
     }

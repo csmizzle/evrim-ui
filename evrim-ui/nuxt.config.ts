@@ -48,7 +48,6 @@ export default defineNuxtConfig({
       inputVariant: 'filled',
       theme: {
           preset: MyPreset,
-          // set color to indigo
       }
     }
   }

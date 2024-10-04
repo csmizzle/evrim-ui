@@ -38,15 +38,7 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         logout() {
-            this.userId = null;
-            this.isAuthenticated = false;
-            this.username = null;
-            this.firstName = '';
-            this.lastName = '';
-            this.isSubscribed = false;
-            this.accessToken = '';
-            this.refreshToken = '';
-            this.emailAddress = '';
+            this.$reset();
         }
     },
     persist: true
