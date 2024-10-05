@@ -29,7 +29,7 @@ definePageMeta({
                 <label for="password1" class="text-surface-900 dark:text-surface-0 font-medium mb-2 block">Password</label>
                 <InputText id="password1" v-model="password" type="password" placehoder="Password" @keyup.enter="loginUser" class="w-full mb-4" />
 
-                <Button :label="loading ? '      ' : 'Sign In'" @click="loginUser" icon="pi pi-user" class="w-full flex-shrink-0" :disabled="loading" style="min-width: 100px;">
+                <Button :label="loading ? '      ' : 'Sign In'" @click="loginUser" icon="pi pi-user" class="w-full flex-shrink-0" :disabled="loading" style="min-width: 100px;" outlined>
                     <template #icon>
                         <ProgressSpinner v-if="loading" style="width: 20px; height: 20px;" strokeWidth="4"/>
                     </template>

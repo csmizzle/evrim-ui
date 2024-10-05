@@ -151,8 +151,8 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-end gap-2">
-                                    <Button type="button" label="Cancel" severity="secondary" @click="showOrderReport = false"></Button>
-                                    <Button type="button" label="Submit" @click="submitReport"></Button>
+                                    <Button type="button" label="Cancel" severity="secondary" @click="showOrderReport = false" outlined></Button>
+                                    <Button type="button" label="Submit" @click="submitReport" outlined></Button>
                                 </div>
                             </Dialog>
                         </a>
@@ -206,7 +206,6 @@ onMounted(() => {
             userStore.isSubscribed = true;
         }
     }).catch((err: any) => {
-        console.log(err);
         userStore.isSubscribed = false;
     });
 });
