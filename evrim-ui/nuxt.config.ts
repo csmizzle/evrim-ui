@@ -44,7 +44,6 @@ export default defineNuxtConfig({
   modules: ['@primevue/nuxt-module', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
   primevue: {
     options: {
-      ripple: true,
       inputVariant: 'filled',
       theme: {
           preset: MyPreset,

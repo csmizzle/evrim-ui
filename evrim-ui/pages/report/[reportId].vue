@@ -24,19 +24,19 @@
             </span>
         </div>
         <div v-if="taskReport.report" class="flex justify-left text-surface-900 dark:text-surface-0 font-medium text-l mb-2">
-            {{ taskReport.report.report.description }}
+            {{ taskReport.report.description }}
         </div>
-        <div v-if="taskReport.report" class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
-            <Accordion multiple>
-                <div>
-                    <div class="text-surface-900 dark:text-surface-0 font-medium text-l pl-4">
-                        Sections
-                    </div>
-                    <Divider />
-                </div>
-                <AccordionPanel v-for="section in taskReport.report.report.sections" :key="section.id" :value="section.title">
+    </div>
+    <div v-else>
+        <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4 pl-2">
+            Loading...
+        </div>
+    </div>
+    <div v-if="taskReport.report" class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
+        <Accordion multiple>
+                <AccordionPanel v-for="section in taskReport.report.sections" :key="section.id" :value="section.title">
                     <AccordionHeader>
-                        <span class="font-bold whitespace-nowrap z-0">{{ section.title }}</span>
+                        <span class="font-bold whitespace-nowrap">{{ section.title }}</span>
                         <i v-if="section.sources && section.sources.length > 0" class="pi pi-external-link ml-auto mr-2" style="color: white !important"/>
                     </AccordionHeader>
                     <AccordionContent>
@@ -54,7 +54,6 @@
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>
-        </div>
     </div>
     <div v-else>
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4 pl-2">
@@ -91,7 +90,6 @@ interface TaskWithReport extends Report{
 
 export default defineComponent({
     data() {
-        
         return {
             taskReport: {} as TaskWithReport,
             client: new EvrimClient(),
