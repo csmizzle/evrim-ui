@@ -136,8 +136,9 @@ export default defineComponent({
         },
         downloadPdf() {
             const userStore = useUserStore();
-            const reportId = this.taskReport.report.id
-            this.client.generateReportPdf(userStore.accessToken, reportId).then((response) => {
+            console.log(this.taskReport.report);
+            const reportId = this.taskReport.id
+            this.client.generateReportPdf(userStore.accessToken, reportId.toString()).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
