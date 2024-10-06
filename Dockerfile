@@ -9,9 +9,9 @@ FROM base as build
 ARG NUXT_EVRIM_API_URL
 ARG NUXT_STRIPE_PUBLISHABLE_KEY
 ARG NUXT_STRIPE_MANAGEMENT_URL
-COPY --link ./package.json ./package-lock.json ./
+COPY --link ./evrim-ui/package.json ./evrim-ui/package-lock.json ./
 RUN npm install
-COPY --link ./ ./
+COPY --link ./evrim-ui ./
 ENV NUXT_EVRIM_API_URL=${NUXT_EVRIM_API_URL}
 ENV NUXT_STRIPE_PUBLISHABLE_KEY=${NUXT_STRIPE_PUBLISHABLE_KEY}
 ENV NUXT_STRIPE_MANAGEMENT_URL=${NUXT_STRIPE_MANAGEMENT_URL}

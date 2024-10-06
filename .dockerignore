@@ -1,0 +1,26 @@
+# Nuxt dev/build outputs
+evrim-ui/.output
+evrim-ui/.data
+evrim-ui/.nuxt
+evrim-ui/.nitro
+evrim-ui/.cache
+evrim-ui/dist
+
+# Node dependencies
+evrim-ui/node_modules
+
+# Logs
+evrim-ui/logs
+evrim-ui/*.log
+
+# Misc
+evrim-ui/.DS_Store
+evrim-ui/.fleet
+evrim-ui/.idea
+
+# Local env files
+evrim-ui/.env
+evrim-ui/.env.*
+evrim-ui/!.env.example
+
+evrim-ui/.vscode

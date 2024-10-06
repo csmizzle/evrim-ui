@@ -1,2 +1,3 @@
 .vscode
 /evrim-ui/build-local.sh
+./build-local.sh
