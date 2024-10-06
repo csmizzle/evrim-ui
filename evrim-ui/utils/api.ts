@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
 import { getCookie } from '.';
 
-
 // ser up axios crsftoken
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
@@ -12,6 +11,7 @@ class EvrimClient {
 
     constructor() {
         const runtimeConfig = useRuntimeConfig();
+        console.log("API URL: ", runtimeConfig.public.EVRIM_API_URL);
         this.client = axios.create({
             baseURL: runtimeConfig.public.EVRIM_API_URL,
             headers: {
