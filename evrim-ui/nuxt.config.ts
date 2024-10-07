@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
-    baseURL: "/ui/"
+    baseURL: process.env.NUXT_BASE_URL,
   },
   runtimeConfig: {
     public: {

@@ -56,6 +56,7 @@ jobs:
           NUXT_EVRIM_API_URL: https://api.evrim.ai/prod
           NUXT_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NUXT_STRIPE_PUBLISHABLE_KEY }}
           NUXT_STRIPE_MANAGEMENT_URL: ${{ secrets.NUXT_STRIPE_MANAGEMENT_URL }}
+          NUXT_BASE_URL: /prod/ui/
         run: |
           # Build a docker container and
           # push it to ECR so that it can
@@ -70,5 +71,6 @@ jobs:
             --build-arg NUXT_EVRIM_API_URL=$NUXT_EVRIM_API_URL \
             --build-arg NUXT_STRIPE_PUBLISHABLE_KEY=$NUXT_STRIPE_PUBLISHABLE_KEY \
             --build-arg NUXT_STRIPE_MANAGEMENT_URL=$NUXT_STRIPE_MANAGEMENT_URL \
+            --build-arg NUXT_BASE_URL=$NUXT_BASE_URL \
             .
           docker push $ECR_REPOSITORY/$CONTAINER_NAME:latest
