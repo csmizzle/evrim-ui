@@ -53,7 +53,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
           CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
-          NUXT_EVRIM_API_URL: api.evrim.ai/prod
+          NUXT_EVRIM_API_URL: https://api.evrim.ai/prod
           NUXT_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NUXT_STRIPE_PUBLISHABLE_KEY }}
           NUXT_STRIPE_MANAGEMENT_URL: ${{ secrets.NUXT_STRIPE_MANAGEMENT_URL }}
         run: |
