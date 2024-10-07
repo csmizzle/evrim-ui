@@ -11,7 +11,7 @@
                 <div class="mt-4">
                     <ul class="list-none p-0 m-0">
                         <li>
-                            <a
+                            <nuxt-link
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                                 :class="{ 
                                     'text-primary-emphasis': activeTab === 0,
@@ -20,17 +20,17 @@
                                 }"
                                 @click="setActiveTab(0)"
                                 style="color: white !important;"
-                                href="/"
+                                to="/"
                             >
                                 <i 
                                     class="pi pi-home mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none"
                                     style="color: white !important;"
                                 />
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Home</span>
-                            </a>
+                            </nuxt-link>
                         </li>
                         <li class="relative">
-                            <a
+                            <nuxt-link
                                 v-styleclass="{
                                     selector: '@next',
                                     enterFromClass: 'hidden',
@@ -44,14 +44,14 @@
                                     'border-primary-emphasis': activeTab === 1,
                                 }"
                                 @click="setActiveTab(1)"
-                                href="/reports"
+                                to="/reports"
                             >
                                 <i class="pi pi-book mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Reports</span>
-                            </a>
+                            </nuxt-link>
                         </li>
                         <li>
-                            <a
+                            <nuxt-link
                                 class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
                                 :class="{ 
                                     'text-primary-emphasis': activeTab === 2,
@@ -59,11 +59,11 @@
                                     'border-primary-emphasis': activeTab === 2,
                                 }"
                                 @click="setActiveTab(2)"
-                                href="/account"
+                                to="/account"
                             >
                                 <i class="pi pi-cog mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Account</span>
-                            </a>
+                            </nuxt-link>
                         </li>
                     </ul>
                 </div>
