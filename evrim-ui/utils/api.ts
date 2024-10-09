@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
-import { getCookie } from '.';
 
 // ser up axios crsftoken
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -99,9 +98,11 @@ class EvrimClient {
         firstName: string | null,
         lastName: string | null,
     ) {
+        const cookie = useCookie('csrftoken');
+        console.log("Cookie", cookie.value);
         const config: AxiosRequestConfig = {
             headers: {
-                'X-CSRFTOKEN': getCookie('csrftoken'),
+                'X-CSRFTOKEN': cookie.value,
             }
         }
         return this.client.patch('/user-info/', {
@@ -129,12 +130,14 @@ class EvrimClient {
         tone: string,
         point_of_view: string
     ) {
+        const cookie = useCookie('csrftoken');
+        console.log("Cookie", cookie.value);
         const config: AxiosRequestConfig = {
             headers: {
-                'X-CSRFTOKEN': getCookie('csrftoken'),
+                'X-CSRFTOKEN': cookie.value,
             }
         }
-        console.log(config);
+        console.log("Header", config);
         return this.client.post('/research/', {
             url: url,
             title: title,
