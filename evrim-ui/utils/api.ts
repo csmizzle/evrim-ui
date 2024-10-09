@@ -134,6 +134,7 @@ class EvrimClient {
                 'X-CSRFTOKEN': getCookie('csrftoken'),
             }
         }
+        console.log(config);
         return this.client.post('/research/', {
             url: url,
             title: title,
