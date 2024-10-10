@@ -45,9 +45,10 @@ class EvrimClient {
     }
 
     createStripeCheckoutSession(token: string) {
+        const cookie = useCookie('csrftoken');
         const config: AxiosRequestConfig = {
             headers: {
-                'X-CSRFTOKEN': getCookie('csrftoken'),
+                'X-CSRFTOKEN': cookie.value,
             }
         }
         return this.client.post('/checkout/session/', {}, config);
@@ -61,22 +62,30 @@ class EvrimClient {
     }
 
     subscribe() {
+        const cookie = useCookie('csrftoken');
         const config: AxiosRequestConfig = {
             headers: {
-                'X-CSRFTOKEN': getCookie('csrftoken'),
+                'X-CSRFTOKEN': cookie.value,
             }
         }
         return this.client.post('/subscribe/', {}, config);
     }
 
     isSubscribed() {
-        return this.client.get('/subscribed/');
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.get('/subscribed/', config);
     }
 
     getUserInfo() {
+        const cookie = useCookie('csrftoken');
         const config: AxiosRequestConfig = {
             headers: {
-                'X-CSRFTOKEN': getCookie('csrftoken'),
+                'X-CSRFTOKEN': cookie.value,
             }
         }
         return this.client.get('/user-info/', config);
