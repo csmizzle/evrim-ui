@@ -19,7 +19,7 @@ definePageMeta({
             <div class="text-center mb-8">
                 <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Evrim</div>
                 <span class="text-surface-600 dark:text-surface-200 font-medium leading-normal">Don't have an account?</span>
-                <a class="font-medium no-underline ml-2 text-primary cursor-pointer" href="/sign-up">Sign up</a>
+                <nuxt-link class="font-medium no-underline ml-2 text-primary cursor-pointer" href="/sign-up">Sign up</nuxt-link>
             </div>
 
             <div>
