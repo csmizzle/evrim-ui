@@ -35,7 +35,6 @@ class EvrimClient {
         firstName: string,
         lastName: string,
     ) {
-        console.log("Registering user");
         return this.client.post('/register/', {
             username: username,
             password: password,
@@ -75,7 +74,12 @@ class EvrimClient {
     }
 
     getUserInfo() {
-        return this.client.get('/user-info/');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
+        }
+        return this.client.get('/user-info/', config);
     }
 
     updateUserInfo(
@@ -99,7 +103,6 @@ class EvrimClient {
         lastName: string | null,
     ) {
         const cookie = useCookie('csrftoken');
-        console.log("Cookie", cookie.value);
         const config: AxiosRequestConfig = {
             headers: {
                 'X-CSRFTOKEN': cookie.value,
@@ -131,13 +134,11 @@ class EvrimClient {
         point_of_view: string
     ) {
         const cookie = useCookie('csrftoken');
-        console.log("Cookie", cookie.value);
         const config: AxiosRequestConfig = {
             headers: {
                 'X-CSRFTOKEN': cookie.value,
             }
         }
-        console.log("Header", config);
         return this.client.post('/research/', {
             url: url,
             title: title,

@@ -257,7 +257,6 @@ export default defineComponent({
         },  
         subscribed() {
             const userStore = useUserStore();
-            console.log(`subscribed: ${userStore.isSubscribed}`);
             return userStore.isSubscribed;
         },
         goToSubscribe() {
@@ -299,7 +298,6 @@ export default defineComponent({
             const taskStore = useTaskStore();
             this.client.getTasks().then((res: { status: number; data: any }) => {
                 if (res.status === 200) {
-                    console.log(res.data);
                     taskStore.tasks = res.data;
                 }
             }).catch((err: any) => {

@@ -128,7 +128,6 @@ export default defineComponent({
             const userStore = useUserStore();
             const reportId = Array.isArray(this.$route.params.reportId) ? this.$route.params.reportId[0] : this.$route.params.reportId;
             this.client.getReportFromTaskId(userStore.accessToken, reportId).then((response) => {
-                console.log(response.data);
                 this.taskReport = response.data;
             }).catch((error) => {
                 console.error(error);
@@ -136,7 +135,6 @@ export default defineComponent({
         },
         downloadPdf() {
             const userStore = useUserStore();
-            console.log(this.taskReport.report);
             const reportId = this.taskReport.id
             this.client.generateReportPdf(userStore.accessToken, reportId.toString()).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));

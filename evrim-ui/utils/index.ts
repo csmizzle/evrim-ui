@@ -1,7 +1,7 @@
 export function getCookie(
     name: string
 ) {
-    let cookieValue = null;
+    let cookieValue: null | string = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -12,6 +12,5 @@ export function getCookie(
             }
         }
     }
-    console.log(cookieValue);
     return cookieValue;
 }

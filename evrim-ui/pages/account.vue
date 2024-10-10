@@ -111,7 +111,6 @@ export default defineComponent({
                             userStore.emailAddress = emailAddress;
                         }
                         if (firstName) {
-                            console.log(`Updating first name ${firstName}`);
                             userStore.firstName = firstName;
                         }
                         if (lastName) {
@@ -132,7 +131,6 @@ export default defineComponent({
     },
     goToStripe() {
         const runtimeConfig = useRuntimeConfig();
-        console.log('URL:', runtimeConfig.public.STRIPE_MANAGEMENT_URL)
         window.open(runtimeConfig.public.STRIPE_MANAGEMENT_URL, '_blank');
     }
     }

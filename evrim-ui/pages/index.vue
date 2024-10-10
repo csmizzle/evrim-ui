@@ -50,7 +50,6 @@ export default defineComponent({
         },
         subscribed() {
             const userStore = useUserStore();
-            console.log(`subscribed: ${userStore.isSubscribed}`);
             return userStore.isSubscribed;
         },
         goToSubscribe() {
