@@ -155,6 +155,7 @@ class EvrimClient {
             style: style,
             tone: tone,
             point_of_view: point_of_view,
+            task_stream: true,
         }, config);
     }
 
@@ -211,6 +212,7 @@ class EvrimClient {
         }
         return this.client.get(`/generate/${reportId}/docx/`, config);
     }
+    
 }
 
 export default EvrimClient;

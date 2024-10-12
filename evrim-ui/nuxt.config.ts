@@ -42,7 +42,12 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ['@primevue/nuxt-module', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
+  modules: [
+    '@primevue/nuxt-module',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
+    '@vueuse/nuxt',
+  ],
   primevue: {
     options: {
       inputVariant: 'filled',

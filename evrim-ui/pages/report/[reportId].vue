@@ -56,31 +56,29 @@
             </Accordion>
     </div>
     <div v-else>
-        <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4 pl-2">
-            Loading...
+        <div>
+            Report is being generated ...
         </div>
+    </div>
+    <div v-if="taskOutputs.length > 0">
+        {{ taskOutputs }}
+    </div>
+    <div v-else>
+        Waiting for task outputs...
     </div>
 </div>
 </template>
-<script setup lang="ts">
+<script lang="ts">
 import Accordion from 'primevue/accordion';
 import SplitButton from 'primevue/splitbutton';
 import Divider from 'primevue/divider';
 import { useToast } from "primevue/usetoast";
-
-const toast = useToast();
-
-definePageMeta({
-    title: 'Reports',
-    description: 'Reports page of Evrim ',
-    requiresAuth: true
-})
-</script>
-<script lang="ts">
-import { defineComponent } from 'vue';
+import { useEventSource } from '@vueuse/core'
+import { defineComponent, ref } from 'vue';
 import EvrimClient from '~/utils/api';
 import type { Report } from '~/types/report';
 import type { Task } from '~/types/task';
+import type { TaskOutput } from '~/types/taskOutput';
 
 
 
@@ -89,6 +87,14 @@ interface TaskWithReport extends Report{
 }
 
 export default defineComponent({
+    setup() {
+        const toast = useToast();
+        definePageMeta({
+            title: 'Reports',
+            description: 'Reports page of Evrim ',
+            requiresAuth: true
+        });
+    },
     data() {
         return {
             taskReport: {} as TaskWithReport,
@@ -120,7 +126,9 @@ export default defineComponent({
                         })
                     }
                 }
-            ]
+            ],
+            eventStream: ref<string | null>(null),
+            taskOutputs: [] as TaskOutput[],
         }
     },
     methods: {
@@ -165,10 +173,38 @@ export default defineComponent({
             return str.replace(/\w\S*/g, (txt) => {
                 return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
             });
+        },
+        getTaskOutputs() {
+            const runtimeConfig = useRuntimeConfig();
+            const reportId = Array.isArray(this.$route.params.reportId) ? this.$route.params.reportId[0] : this.$route.params.reportId;
+            const sseUrl = `${runtimeConfig.public.EVRIM_API_URL}/tasks/${reportId}/events/`;
+            console.log(sseUrl);
+            const {
+                error,
+                status,
+                data,
+            } = useEventSource(
+                sseUrl,
+                ["message"],
+                {
+                    autoReconnect: true,
+
+                }
+            )
+            console.log(status.value);
+            console.log(error.value);
+            console.log(data.value);
+            this.eventStream = data;
         }
     },
     mounted() {
+        this.getTaskOutputs();
         this.getReport();
     },
+    watch: {
+        eventStream(newValue, oldValue) {
+            this.taskOutputs.push(this.eventStream);
+        }
+    }
 })
 </script>
