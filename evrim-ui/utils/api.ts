@@ -211,6 +211,16 @@ class EvrimClient {
         }
         return this.client.get(`/generate/${reportId}/docx/`, config);
     }
+
+    getAllGraphs() {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.get('/graphs/', config);
+    }
 }
 
 export default EvrimClient;

@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css', 'primeicons/primeicons.css'],
+  css: ['~/assets/css/main.css', 'primeicons/primeicons.css', "v-network-graph/lib/style.css"],
   postcss: {
     plugins: {
       tailwindcss: {},

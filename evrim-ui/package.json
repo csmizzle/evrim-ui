@@ -19,6 +19,7 @@
     "primeicons": "^7.0.0",
     "primevue": "^4.0.7",
     "sass": "^1.79.4",
+    "v-network-graph": "^0.9.17",
     "vue": "latest",
     "vue-router": "latest"
   },
