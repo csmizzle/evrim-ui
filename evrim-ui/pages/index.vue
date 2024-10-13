@@ -2,8 +2,25 @@
     <div class="bg-surface-50 dark:bg-surface-950 px-6 py-8 md:px-12 lg:px-8 -mt-2">
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Home</div>
         <Divider />
-        <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
-            <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs" />
+        <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-screen w-full flex flex-col">
+            <div class="grid grid-cols-2 gap-3 flex">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                    <h2>Research Graph</h2>
+                    <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
+                </div>
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                    <h2>Research Tasks</h2>
+                    <Line :data="data" :options="chartOptions" />
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 flex-grow mt-3">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                    <h2>Report Sources</h2>
+                </div>
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                    <h2>Briefings</h2>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -11,6 +28,28 @@
 import EvrimClient from '~/utils/api';
 import * as vNG from "v-network-graph"
 import { ForceLayout } from "v-network-graph/lib/force-layout"
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+import { Line } from 'vue-chartjs'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
+
 
 definePageMeta({
     title: 'Home',
@@ -62,7 +101,20 @@ export default defineComponent({
             client: new EvrimClient(),
             nodes: {} as { [key: string]: { name: string; type?: string } },
             edges: {} as { [key: string]: { source: string; target: string } },
-            nodeCount: 0
+            nodeCount: 0,
+            data:{
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                    label: 'Data One',
+                    backgroundColor: '#f87979',
+                    data: [40, 39, 10, 40, 39, 80, 40]
+                    }
+                ]
+            },
+            chartOptions: {
+                responsive: true
+            }
         }
     },
     methods: {
@@ -116,10 +168,3 @@ export default defineComponent({
     }
 })
 </script>
-<style>
-.graph {
-    width: 800px;
-    height: 600px;
-    border: 1px solid #000;
-}
-</style>

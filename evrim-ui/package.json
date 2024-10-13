@@ -12,6 +12,8 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.4",
     "@vue-stripe/vue-stripe": "^4.5.0",
+    "chart.js": "^4.4.4",
+    "d3-force": "^3.0.0",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^4.0.2",
@@ -21,6 +23,7 @@
     "sass": "^1.79.4",
     "v-network-graph": "^0.9.17",
     "vue": "latest",
+    "vue-chartjs": "^5.3.1",
     "vue-router": "latest"
   },
   "devDependencies": {
