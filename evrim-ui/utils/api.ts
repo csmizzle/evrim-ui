@@ -221,6 +221,26 @@ class EvrimClient {
         }
         return this.client.get('/graphs/', config);
     }
+
+    getTasksByDay() {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.get('/utils/tasks-by-day/', config);
+    }
+
+    getReportSources() {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.get('/utils/reports-sources/', config);
+    }
 }
 
 export default EvrimClient;
