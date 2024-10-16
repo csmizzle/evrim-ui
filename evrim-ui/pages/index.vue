@@ -4,17 +4,17 @@
         <Divider />
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-screen w-full flex flex-col">
             <div class="grid grid-cols-2 gap-3 flex">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
                     <h2>Research Graph</h2>
                     <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
                 </div>
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
                     <h2>Research Tasks</h2>
                     <Line :data="data" :options="chartOptions" />
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-3 flex-grow mt-3">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
                     <h2>Report Sources</h2>
                     <Accordion multiple>
                         <AccordionPanel v-for="report in reportSources" :key="report.id" :value="report.title">
@@ -96,7 +96,8 @@ const configs = reactive(
                 color: "#fefefe",
             },
             normal: {
-                color: "#6366F1"
+                color: "#6366F1",
+                radius: 8
             }
         },
     })
@@ -179,8 +180,6 @@ export default defineComponent({
                         labels_.push(task.day);
                         chartData.push(task.count);
                     });
-                    console.log(labels_);
-                    console.log(chartData);
                     this.data = {
                         labels: labels_,
                             datasets: [
