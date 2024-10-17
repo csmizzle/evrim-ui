@@ -13,8 +13,8 @@
                     <Line :data="data" :options="chartOptions" />
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 flex-grow mt-3">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+            <div class="grid grid-cols-2 gap-3 flex-grow mt-3 overflow-auto">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 ">
                     <h2>Report Sources</h2>
                     <Accordion multiple>
                         <AccordionPanel v-for="report in reportSources" :key="report.id" :value="report.title">
@@ -22,7 +22,7 @@
                                 <span class="font-bold whitespace-nowrap">{{ report.title }}</span>
                             </AccordionHeader>
                             <AccordionContent>
-                                <p v-for="source in report.sources" class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
+                                <p v-for="source in report.sources" class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2 break-words">
                                     <a :href="source"target="_blank" rel="noopener noreferrer" >{{ source }}</a>
                                 </p>
                             </AccordionContent>

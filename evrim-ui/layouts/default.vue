@@ -150,6 +150,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="flex flex-col gap-2 mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <Checkbox v-model="briefing" inputId="briefing1" name="briefing" value="Briefing" />
+                                        <label for="briefing1" class="ml-2"> Voice Briefing </label><br>
+                                    </div>
+                                </div>
                                 <div class="flex justify-end gap-2">
                                     <Button type="button" label="Cancel" severity="secondary" @click="showOrderReport = false" outlined></Button>
                                     <Button type="button" label="Submit" @click="submitReport" outlined></Button>
@@ -242,7 +248,8 @@ export default defineComponent({
             title: '',
             url: '',
             selectedTone: {} as Tone,
-            activeTab: 0
+            activeTab: 0,
+            briefing: false
         }
     },
     methods: {
