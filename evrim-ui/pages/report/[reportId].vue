@@ -33,7 +33,14 @@
         </div>
     </div>
     <div v-if="taskReport.report" class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border">
-        <Accordion multiple>
+        <Tabs>
+        <TabList>
+            <Tab value="report">Report</Tab>
+            <Tab value="tasks">Tasks</Tab>
+        </TabList>
+        <TabPanels>
+        <TabPanel value="report">
+            <Accordion multiple>
                 <AccordionPanel v-for="section in taskReport.report.sections" :key="section.id" :value="section.title">
                     <AccordionHeader>
                         <span class="font-bold whitespace-nowrap">{{ section.title }}</span>
@@ -54,6 +61,23 @@
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>
+        </TabPanel>
+        <TabPanel value="tasks">
+            <Accordion multiple>
+                <AccordionPanel v-for="task in taskLog.tasks" :key="task.id" :value="task.name">
+                    <AccordionHeader>
+                        <span class="font-bold whitespace-nowrap">{{ task.name }}</span>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <pre class="whitespace-pre-wrap">
+{{ task.result.trimStart() }}
+                        </pre>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+        </TabPanel>
+        </TabPanels>
+        </Tabs>
     </div>
     <div v-else>
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4 pl-2">
@@ -67,8 +91,14 @@ import Accordion from 'primevue/accordion';
 import SplitButton from 'primevue/splitbutton';
 import Divider from 'primevue/divider';
 import { useToast } from "primevue/usetoast";
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
+import TabPanel from 'primevue/tabpanel';
 
 const toast = useToast();
+const activeTab = ref('report');
 
 definePageMeta({
     title: 'Reports',
@@ -120,15 +150,25 @@ export default defineComponent({
                         })
                     }
                 }
-            ]
+            ],
+            taskLog: []
         }
     },
     methods: {
+        getTaskRun(reportId: string) {
+            this.client.getCrewRunFromReportId(reportId).then((response) => {
+                console.log(response.data);
+                this.taskLog = response.data;
+            }).catch((error) => {
+                console.error(error);
+            });
+        },
         getReport() {
             const userStore = useUserStore();
             const reportId = Array.isArray(this.$route.params.reportId) ? this.$route.params.reportId[0] : this.$route.params.reportId;
             this.client.getReportFromTaskId(userStore.accessToken, reportId).then((response) => {
                 this.taskReport = response.data;
+                this.getTaskRun(response.data.id);
             }).catch((error) => {
                 console.error(error);
             });

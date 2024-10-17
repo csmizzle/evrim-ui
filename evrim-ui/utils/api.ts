@@ -211,6 +211,15 @@ class EvrimClient {
         }
         return this.client.get(`/generate/${reportId}/docx/`, config);
     }
+
+    getCrewRunFromReportId(reportId: string) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': getCookie('csrftoken'),
+            }
+        }
+        return this.client.get(`/utils/report-crew-run/${reportId}`, config);
+    }
 }
 
 export default EvrimClient;
