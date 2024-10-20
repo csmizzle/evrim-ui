@@ -3,17 +3,13 @@
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Home</div>
         <Divider />
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-screen w-full flex flex-col">
-            <div class="grid grid-cols-2 gap-3 flex">
+            <div class="grid grid-cols-1 gap-3 flex mb-3 h-screen">
                 <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
                     <h2>Research Graph</h2>
                     <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
                 </div>
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
-                    <h2>Research Tasks</h2>
-                    <Line :data="data" :options="chartOptions" />
-                </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 flex-grow mt-3 overflow-auto">
+            <div class="grid grid-cols-2 gap-3 flex">
                 <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 ">
                     <h2>Report Sources</h2>
                     <Accordion multiple>
@@ -29,8 +25,9 @@
                         </AccordionPanel>
                     </Accordion>
                 </div>
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-4 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
-                    <h2>Briefings</h2>
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                    <h2>Research Tasks</h2>
+                    <Line :data="data" :options="chartOptions" />
                 </div>
             </div>
         </div>
@@ -39,7 +36,11 @@
 <script setup lang="ts">
 import EvrimClient from '~/utils/api';
 import * as vNG from "v-network-graph"
-import { ForceLayout } from "v-network-graph/lib/force-layout"
+import { 
+    ForceLayout,
+    type ForceNodeDatum,
+    type ForceEdgeDatum,
+} from "v-network-graph/lib/force-layout"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -83,12 +84,33 @@ onMounted(() => {
     });
 });
 
-const layoutHandler: vNG.LayoutHandler = new ForceLayout()
-
 const configs = reactive(
     vNG.defineConfigs({
         view: {
-            layoutHandler,
+            layoutHandler: new ForceLayout({
+                positionFixedByDrag: false,
+                positionFixedByClickWithAltKey: true,
+                createSimulation: (d3, nodes, edges) => {
+                // d3-force parameters
+                const forceLink = d3.forceLink<ForceNodeDatum, ForceEdgeDatum>(edges).id((d: { id: any; }) => d.id)
+                return d3
+                    .forceSimulation(nodes)
+                    .force("edge", forceLink.distance(40).strength(0.5))
+                    .force("charge", d3.forceManyBody().strength(-500))
+                    .force("center", d3.forceCenter().strength(0.05))
+                    .alphaMin(0.001)
+
+                    // * The following are the default parameters for the simulation.
+                    // const forceLink = d3.forceLink<ForceNodeDatum, ForceEdgeDatum>(edges).id(d => d.id)
+                    // return d3
+                    //   .forceSimulation(nodes)
+                    //   .force("edge", forceLink.distance(100))
+                    //   .force("charge", d3.forceManyBody())
+                    //   .force("collide", d3.forceCollide(50).strength(0.2))
+                    //   .force("center", d3.forceCenter().strength(0.05))
+                    //   .alphaMin(0.001)
+                }
+            }),
         },
         node: {
             label: {
