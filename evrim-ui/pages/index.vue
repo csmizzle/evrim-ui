@@ -2,9 +2,9 @@
     <div class="bg-surface-50 dark:bg-surface-950 px-6 py-8 md:px-12 lg:px-8 -mt-2">
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Home</div>
         <Divider />
-        <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-screen w-full flex flex-col">
+        <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-fit w-full flex flex-col">
             <div class="grid grid-cols-1 gap-3 flex mb-3 h-screen">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 h-screen">
                     <h2>Research Graph</h2>
                     <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
                 </div>
