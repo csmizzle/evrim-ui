@@ -3,14 +3,14 @@
         <div class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-4">Home</div>
         <Divider />
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-fit w-full flex flex-col">
-            <div class="grid grid-cols-1 gap-3 flex mb-3 h-screen">
+            <div class="grid grid-cols-1 gap-3 flex mb-3 h-fit">
                 <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 h-screen">
                     <h2>Research Graph</h2>
                     <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 flex">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 ">
+            <div class="grid grid-cols-2 gap-3 flex max-h-screen overflow-auto">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500">
                     <h2>Report Sources</h2>
                     <Accordion multiple>
                         <AccordionPanel v-for="report in reportSources" :key="report.id" :value="report.title">
@@ -99,16 +99,6 @@ const configs = reactive(
                     .force("charge", d3.forceManyBody().strength(-500))
                     .force("center", d3.forceCenter().strength(0.05))
                     .alphaMin(0.001)
-
-                    // * The following are the default parameters for the simulation.
-                    // const forceLink = d3.forceLink<ForceNodeDatum, ForceEdgeDatum>(edges).id(d => d.id)
-                    // return d3
-                    //   .forceSimulation(nodes)
-                    //   .force("edge", forceLink.distance(100))
-                    //   .force("charge", d3.forceManyBody())
-                    //   .force("collide", d3.forceCollide(50).strength(0.2))
-                    //   .force("center", d3.forceCenter().strength(0.05))
-                    //   .alphaMin(0.001)
                 }
             }),
         },
