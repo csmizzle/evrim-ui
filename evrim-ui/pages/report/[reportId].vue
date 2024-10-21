@@ -5,7 +5,7 @@
             <div class="text-surface-900 dark:text-surface-0 font-medium text-xl justify-left">
                 {{ JSON.parse(taskReport.task.event.input).title }}
             </div>
-            <SplitButton icon="pi pi-download" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" outlined></SplitButton>
+            <SplitButton :icon="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" outlined></SplitButton>
         </div>
         <Divider />
         <div class="flex justify-between items-center mb-1">
@@ -47,9 +47,19 @@
                         <i v-if="section.sources && section.sources.length > 0" class="pi pi-external-link ml-auto mr-2" style="color: white !important"/>
                     </AccordionHeader>
                     <AccordionContent>
-                        <p v-for="paragraph in section.paragraphs" :key="paragraph.id" class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
-                            {{ paragraph.sentences.join(" ") }}
-                        </p>
+                        <div v-for="paragraph in section.paragraphs" :key="paragraph.id" >
+                            <div v-if="paragraph.images" class="flex justify-center items-center mb-2">
+                                <img :src="paragraph.images.results[0].original_url" class="rounded-border size-4/12" alt="image"/>
+                                <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
+                                    {{ paragraph.sentences.join(" ") }}
+                                </p>
+                            </div>
+                            <div v-else class="flex justify-center items-center mb-2">
+                                <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
+                                    {{ paragraph.sentences.join(" ") }}
+                                </p>
+                            </div>
+                        </div>
                         <div v-if="section.sources && section.sources.length > 0">
                             <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
                                 Sources:
@@ -151,7 +161,8 @@ export default defineComponent({
                     }
                 }
             ],
-            taskLog: []
+            taskLog: [],
+            isLoading: false,
         }
     },
     methods: {
@@ -167,6 +178,7 @@ export default defineComponent({
             const userStore = useUserStore();
             const reportId = Array.isArray(this.$route.params.reportId) ? this.$route.params.reportId[0] : this.$route.params.reportId;
             this.client.getReportFromTaskId(userStore.accessToken, reportId).then((response) => {
+                console.log(response.data);
                 this.taskReport = response.data;
                 this.getTaskRun(response.data.id);
             }).catch((error) => {
@@ -174,6 +186,7 @@ export default defineComponent({
             });
         },
         downloadPdf() {
+            this.isLoading = true;
             const userStore = useUserStore();
             const reportId = this.taskReport.id
             this.client.generateReportPdf(userStore.accessToken, reportId.toString()).then((response) => {
@@ -183,8 +196,10 @@ export default defineComponent({
                 link.setAttribute('download', `${this.taskReport.report.title}.pdf`);
                 document.body.appendChild(link);
                 link.click();
+                this.isLoading = false;
             }).catch((error) => {
                 console.error(error);
+                this.isLoading = false;
             });
         },
         downloadDocx() {
