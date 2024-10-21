@@ -5,7 +5,7 @@
             <div class="text-surface-900 dark:text-surface-0 font-medium text-xl justify-left">
                 {{ JSON.parse(taskReport.task.event.input).title }}
             </div>
-            <SplitButton :icon="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" outlined></SplitButton>
+            <SplitButton :icon="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-download'" label="Download" dropdownIcon="pi pi-cog" @click="downloadPdf" :model="buttonItems" :disabled="isDisabled" outlined></SplitButton>
         </div>
         <Divider />
         <div class="flex justify-between items-center mb-1">
@@ -163,6 +163,7 @@ export default defineComponent({
             ],
             taskLog: [],
             isLoading: false,
+            isDisabled: false
         }
     },
     methods: {
@@ -187,6 +188,7 @@ export default defineComponent({
         },
         downloadPdf() {
             this.isLoading = true;
+            this.isDisabled = true;
             const userStore = useUserStore();
             const reportId = this.taskReport.id
             this.client.generateReportPdf(userStore.accessToken, reportId.toString()).then((response) => {
@@ -197,9 +199,11 @@ export default defineComponent({
                 document.body.appendChild(link);
                 link.click();
                 this.isLoading = false;
+                this.isDisabled = false;
             }).catch((error) => {
                 console.error(error);
                 this.isLoading = false;
+                this.isDisabled = false;
             });
         },
         downloadDocx() {
