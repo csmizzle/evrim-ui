@@ -4,7 +4,7 @@
         <Divider />
         <div class="bg-surface-0 dark:bg-surface-900 p-6 shadow rounded-border h-fit w-full flex flex-col">
             <div class="grid grid-cols-1 gap-3 flex mb-3 h-fit">
-                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 h-screen">
+                <div class="bg-surface-0 dark:bg-surface-900 shadow rounded-border p-6 border border-surface hover:border-surface-300 dark:hover:border-surface-500 h-dvh">
                     <h2>Research Graph</h2>
                     <v-network-graph class="graph" :nodes="nodes" :edges="edges" :configs="configs"/>
                 </div>
