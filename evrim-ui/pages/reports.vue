@@ -4,6 +4,7 @@
         <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
             Order, view, and dive into your reports.
         </p>
+        <AutoComplete :suggestions="titles" v-model="reportFilter" placeholder="Search" class="w-full mb-4" @keydown.enter="filterReports" @complete="search"/>
         <Divider />
         <div class="grid grid-cols-12 gap-4">
             <div v-for="task in useTaskStore().tasks" :key="task.task_id" class="col-span-12 md:col-span-6 xl:col-span-4 p-2 pl-2">
@@ -43,6 +44,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import Divider from 'primevue/divider';
+import AutoComplete from 'primevue/autocomplete';
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 import EvrimClient from '~/utils/api';
@@ -55,6 +57,7 @@ definePageMeta({
 </script>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Input } from 'postcss';
 
 export default defineComponent({
     data() {
@@ -62,6 +65,8 @@ export default defineComponent({
             client: new EvrimClient(),
             confirm: useConfirm(),
             toast: useToast(),
+            reportFilter: '',
+            titles: [] as string[]
         }
     },
     methods: {
@@ -70,6 +75,11 @@ export default defineComponent({
             this.client.getTasks().then((response) => {
             console.log(response.data);
                 taskStore.tasks = response.data;
+                // populate the titles array
+                for (const task of taskStore.tasks) {
+                    this.titles.push(JSON.parse(task.event.input).title);
+                    console.log(this.titles)
+                }
             }).catch((error) => {
                 console.error(error);
             });
@@ -106,6 +116,26 @@ export default defineComponent({
                     this.toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
                 }
             });
+        },
+        filterReports() {
+            console.log(`filtering reports ${this.reportFilter}`);
+            if (this.reportFilter === '') {
+                this.getTasks();
+                return;
+            }
+            const taskStore = useTaskStore();
+            for (const task of taskStore.tasks) {
+                if (JSON.parse(task.event.input).title.toLowerCase().includes(this.reportFilter.toLowerCase())) {
+                    continue;
+                } else {
+                    // remove the task from the array
+                    taskStore.tasks = taskStore.tasks.filter((t) => t.task_id !== task.task_id);
+                }
+            }
+        },
+        search(event: any) {
+            // filter titles to match the search
+            this.titles = this.titles.filter((title) => title.toLowerCase().includes(event.query.toLowerCase()));
         }
     },
     mounted() {
