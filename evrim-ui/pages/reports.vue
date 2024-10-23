@@ -4,7 +4,8 @@
         <p class="m-0 mb-2 p-0 text-surface-600 dark:text-surface-200 leading-normal mr-4 pl-2">
             Order, view, and dive into your reports.
         </p>
-        <InputText class="w-full" :suggestions="titles" v-model="reportFilter" placeholder="Search" @keydown.enter="filterReports" />
+        <InputText class="w-full ml-2" :suggestions="titles" v-model="reportFilter" placeholder="Search" @keydown="filterReports" />
+        <small id="title-help" class="block mt-2 ml-2">Filter by Report Title</small>
         <Divider />
         <div class="grid grid-cols-12 gap-4">
             <div v-for="task in useTaskStore().tasks" :key="task.task_id" class="col-span-12 md:col-span-6 xl:col-span-4 p-2 pl-2">
