@@ -250,6 +250,19 @@ class EvrimClient {
         }
         return this.client.get('/utils/reports-sources/', config);
     }
+
+    createResearchTeam(name: String, sections: string[]) {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.post('/research-teams/', {
+            title: name,
+            sections: sections,
+        }, config);
+    }
 }
 
 export default EvrimClient;
