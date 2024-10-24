@@ -50,21 +50,6 @@
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Reports</span>
                             </nuxt-link>
                         </li>
-                        <li>
-                            <nuxt-link
-                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
-                                :class="{ 
-                                    'text-primary-emphasis': activeTab === 2,
-                                    'border-l-2': activeTab === 2,
-                                    'border-primary-emphasis': activeTab === 2,
-                                }"
-                                @click="setActiveTab(2)"
-                                to="/account"
-                            >
-                                <i class="pi pi-cog mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
-                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Account</span>
-                            </nuxt-link>
-                        </li>
                         <li class="relative">
                             <nuxt-link
                                 v-styleclass="{
@@ -84,6 +69,21 @@
                             >
                                 <i class="pi pi-hammer mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
                                 <span class="font-medium inline !text-white lg:text-xs lg:hidden">Builder</span>
+                            </nuxt-link>
+                        </li>
+                        <li>
+                            <nuxt-link
+                                class="flex flex-row lg:flex-col items-center cursor-pointer p-4 lg:justify-center hover:border-surface-300 dark:hover:border-surface-500 duration-150 transition-colors"
+                                :class="{ 
+                                    'text-primary-emphasis': activeTab === 2,
+                                    'border-l-2': activeTab === 2,
+                                    'border-primary-emphasis': activeTab === 2,
+                                }"
+                                @click="setActiveTab(2)"
+                                to="/account"
+                            >
+                                <i class="pi pi-cog mr-2 lg:mr-0 !text-white lg:!text-2xl leading-none" style="color: white !important;"/>
+                                <span class="font-medium inline !text-white lg:text-xs lg:hidden">Account</span>
                             </nuxt-link>
                         </li>
                     </ul>
