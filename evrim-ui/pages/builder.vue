@@ -13,6 +13,9 @@
                     <div v-for="research_question in agent.research_questions" :key="research_question.id" class="flex flex-col">
                         <InputText :value="research_question" class="w-full p-2 mb-2" placeholder="Section Title" />
                     </div>
+                    <div>
+                        <Button class="self-center w-1/2"label="Save" @click="saveTeam" outlined/>
+                    </div>
                 </div>
             </div>
             <div v-else>
@@ -70,6 +73,12 @@ export default defineComponent({
                 console.error(error);
             })
         },
+        saveTeam() {
+            this.sectionCount = 0;
+            this.teamName = '';
+            this.sections = [];
+            this.createdTeam = null;
+        }
     }
 })
 </script>
