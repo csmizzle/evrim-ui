@@ -29,8 +29,11 @@
             <div v-else>
                 <p class="text-surface-900 dark:text-surface-0 font-medium text-lg mb-4">Create a Report Template</p>
                 <InputText v-model="teamName" class="w-full p-2 mb-2" placeholder="Report Name" />
-                <div v-for="n in sectionCount" :key="n" class="flex flex-col">
-                    <InputText v-model="sections[n]" class="w-full p-2 mb-2" placeholder="Section Title" />
+                <div v-for="n in sectionCount" :key="n" class="flex flex-col mb-2 ml-2">
+                    <InputGroup>
+                        <InputText v-model="sections[n]" class="w-full p-2 mb-2" placeholder="Section Title" />
+                        <Button icon="pi pi-times" severity="danger" @click="deleteSection(n)" outlined/>
+                    </InputGroup>
                 </div>
                 <div class="flex justify-between">
                     <Button class="self-center w-1/2"label="Add Section" @click="addSection" outlined/>
@@ -74,12 +77,14 @@ export default defineComponent({
         },
         createTeam() {
             // remove null values from sections
-            const cleanedSections = this.sections.filter((section) => section !== null);
-            this.client.createResearchTeam(this.teamName, cleanedSections).then((response) => {
-                this.createdTeam = response.data;
-            }).catch((error) => {
-                console.error(error);
-            })
+            if (this.sections) {
+                const cleanedSections = this.sections.filter((section) => section !== null);
+                this.client.createResearchTeam(this.teamName, cleanedSections).then((response) => {
+                    this.createdTeam = response.data;
+                }).catch((error) => {
+                    console.error(error);
+                })
+            }
         },
         saveTeam() {
             this.sectionCount = 0;
@@ -106,6 +111,12 @@ export default defineComponent({
                 // add new item to the research_questions array
                 this.createdTeam.agents[agentIndex].research_questions.push('');
             }
+        },
+        deleteSection(index: number) {
+            // remove the section from the sections array
+            const actualIndex = index - 1;
+            this.sections.splice(actualIndex, 1);
+            this.sectionCount -= 1; // Don't forget to decrease the section count
         }
     }
 })

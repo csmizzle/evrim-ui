@@ -276,6 +276,16 @@ class EvrimClient {
             agents: researchTeam.agents,
         }, config);
     }
+
+    getResearchTeams() {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.get('/research-teams/', config);
+    }
 }
 
 export default EvrimClient;

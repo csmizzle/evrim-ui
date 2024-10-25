@@ -173,6 +173,14 @@
                                 </div>
                                 <div class="flex flex-col gap-2 mb-4">
                                     <div class="flex items-center gap-4">
+                                        <div class="w-full md:w-100">
+                                            <Select v-model="selectedTeam" :options="teams" optionLabel="name" placeholder="Research Team" class="w-full" />
+                                            <small id="title-help" class="block mt-2">Research teams drive data collection and data retrieval</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 mb-4">
+                                    <div class="flex items-center gap-4">
                                         <Checkbox v-model="briefing" inputId="briefing1" name="briefing" value="Briefing" />
                                         <label for="briefing1" class="ml-2"> Voice Briefing </label><br>
                                     </div>
@@ -252,6 +260,8 @@ export default defineComponent({
         if (savedTab !== null) {
             this.activeTab = parseInt(savedTab);
         }
+        this.loadTasks();
+        this.loadTeams();
     },
     data() {
         return {
@@ -269,17 +279,21 @@ export default defineComponent({
             title: '',
             url: '',
             selectedTone: {} as Tone,
+            selectedTeam: {},
             activeTab: 0,
-            briefing: false
+            briefing: false,
+            teams: [],
         }
     },
     methods: {
         logOut() {
             const userStore = useUserStore();
             const taskStore = useTaskStore();
+            const teamStore = useTeamStore();
             this.client.logout().then(() => {
                 userStore.logout();
                 taskStore.logout();
+                teamStore.logout();
                 this.$router.push('/login');
             });
         },  
@@ -331,7 +345,22 @@ export default defineComponent({
             }).catch((err: any) => {
                 console.log(err);
             });
+        },
+        loadTeams() {
+            const teamStore = useTeamStore();
+            this.client.getResearchTeams().then((res: { status: number; data: any }) => {
+                if (res.status === 200) {
+                    console.log("Loaded teams");
+                    teamStore.teams = res.data;
+                    // load team titles into select options array
+                    this.teams = res.data.map((team: { title: string; }) => {
+                        return { name: team.title, code: team.title };
+                    });
+                }
+            }).catch((err: any) => {
+                console.log(err);
+            });
         }
-    }
+    },
 })
 </script>
