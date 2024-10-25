@@ -263,6 +263,19 @@ class EvrimClient {
             sections: sections,
         }, config);
     }
+
+    partialUpdateTeam(researchTeam: any) {
+        const cookie = useCookie('csrftoken');
+        const config: AxiosRequestConfig = {
+            headers: {
+                'X-CSRFTOKEN': cookie.value,
+            }
+        }
+        return this.client.patch(`/research-teams/${researchTeam.id}/`, {
+            title: researchTeam.title,
+            agents: researchTeam.agents,
+        }, config);
+    }
 }
 
 export default EvrimClient;
