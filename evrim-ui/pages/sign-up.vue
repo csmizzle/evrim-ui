@@ -87,15 +87,26 @@ export default defineComponent({
                         this.username,
                         this.password
                     ).then((res: { data: any; }) => {
-                        // set tokens
-                        userStore.accessToken = res.data.access;
-                        userStore.refreshToken = res.data.refresh;
-                        // set user details
-                        userStore.username = this.username;
-                        userStore.isAuthenticated = true;
-                        // redirect to home
-                        this.$router.push('/');
-                        this.loading = false;
+                        //get user info
+                        this.client.getUserInfo().then((userResponse: { status: number; data: any}) => {
+                                if (userResponse.status === 200) {
+                                    userStore.emailAddress = userResponse.data.email;
+                                    userStore.firstName = userResponse.data.first_name;
+                                    userStore.lastName = userResponse.data.last_name;
+                                    userStore.accessToken = res.data.access;
+                                    userStore.refreshToken = res.data.refresh;
+                                    userStore.userId = res.data.id;
+                                    userStore.username = this.username;
+                                    userStore.isAuthenticated = true;
+                                    userStore.isSubscribed = res.data.subscribed;
+                                    this.registerError = false;
+                                    this.$router.push('/');
+                                    this.loading = false;
+                                }
+                            }).catch(() => {
+                                this.registerError = true;
+                                this.loading = false;
+                            });
                     })
                 }
             }).catch(() => {
