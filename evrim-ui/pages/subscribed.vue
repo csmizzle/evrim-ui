@@ -15,7 +15,7 @@ onMounted(() => {
                 userStore.accessToken = res.data.access;
                 userStore.refreshToken = res.data.refresh;
                 userStore.isSubscribed = true;
-                router.push('/');
+                this.$router.push('/');
             }
         }).catch((err: any) => {
             console.log(err);
