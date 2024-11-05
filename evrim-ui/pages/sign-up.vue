@@ -82,7 +82,8 @@ export default defineComponent({
             ).then((res: { status: number; data: any; }) => {
                 if (res.status === 201) {
                     userStore.userId = res.data.id;
-                    this.client.getTokens(
+                    // login user
+                    this.client.login(
                         this.username,
                         this.password
                     ).then((res: { data: any; }) => {
